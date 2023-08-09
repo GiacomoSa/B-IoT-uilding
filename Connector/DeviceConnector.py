@@ -148,7 +148,3 @@ if __name__ == '__main__':
 
     cherrypy.engine.block()
 
-
-    r = requests.get(url)
-
-    c = "ale puzza"
