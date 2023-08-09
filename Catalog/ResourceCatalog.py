@@ -391,7 +391,14 @@ class CatalogSENSOR: # mounted on '/Sensors'
         """
 
         new_sensor = json.loads(cherrypy.request.body.read())
-        self.insertSensor(new_sensor)
+        new_sensor_id = new_sensor["sensor_id"]
+        for sensor in self.sensors:
+            found = False
+            if new_sensor_id == sensor["sensor_id"]:
+                found = True
+                break
+            if not found:
+                self.insertSensor(new_sensor)
 
         return  # ???
 
