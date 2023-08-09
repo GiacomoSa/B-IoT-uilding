@@ -1,0 +1,35 @@
+<h1 id="building-catalog">Building Catalog</h1>
+<p>In this page are reported the definition of a Building and all functionalities related.</p>
+<hr>
+<h3 id="building-architecture">Building architecture</h3>
+<p>Each of the buildings has the following characteristics:</p>
+<ul>
+<li>building id</li>
+<li>building type (short description)</li>
+<li>all rooms</li>
+</ul>
+<h3 id="building-functionalities">Building functionalities</h3>
+<p>Functionalities to get information of a building are available.</p>
+<ul>
+<li>You can retrieve all device with the command:\
+<span style="color:green"> <em><a href="http://127.0.0.1:9096/building?id=all">http://127.0.0.1:9096/building?id=all</a></em> </span></li>
+<li>You can retrieve a single sensor by knowing its id with the command:\
+<span style="color:green"><em><a href="http://127.0.0.1:9096/building?id=BUILDINGID">http://127.0.0.1:9096/building?id=BUILDINGID</a></em> </span></li>
+<li><span style="color:red"><em>TODO</em> </span> aggiungere altri comandi</li>
+<li>You can perform a POST/PUT to insert/modify a building at the url:\
+<span style="color:green"><em><a href="http://127.0.0.1:9096/building">http://127.0.0.1:9096/building</a></em> </span>\
+wih the following json format:</li>
+</ul>
+<pre><code class="lang-javascript">{
+  <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"x1"</span>,
+  <span class="hljs-attr">"building_id"</span>: <span class="hljs-string">"y1"</span>,
+  <span class="hljs-attr">"room_id"</span>: <span class="hljs-string">"z1"</span>,
+  <span class="hljs-attr">"control_type"</span>: <span class="hljs-string">"mechanical"</span>,
+  <span class="hljs-attr">"topic"</span>: <span class="hljs-string">"/your/topic"</span>
+}
+</code></pre>
+<p>Note: a building can be inserted by authorized users only (Super Users).</p>
+<ul>
+<li>You can perform a DELETE to delete a building from a room of a building at the url:\
+<span style="color:green"><em><a href="http://127.0.0.1:9096/building?id=BUILDINGID">http://127.0.0.1:9096/building?id=BUILDINGID</a></em> </span></li>
+</ul>

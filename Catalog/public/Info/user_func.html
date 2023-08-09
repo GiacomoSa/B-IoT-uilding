@@ -1,0 +1,39 @@
+<h1 id="user-catalog">User Catalog</h1>
+<p>In this page are reported the definition of a user and all functionalities related. A user can act ... </p>
+<hr>
+<h3 id="user-architecture">User architecture</h3>
+<p>Each of the devices has the following characteristics:</p>
+<ul>
+<li>user id</li>
+<li>password</li>
+<li>is Super User</li>
+<li>set of Buildings the user has access to</li>
+<li>name</li>
+<li>surname</li>
+</ul>
+<h3 id="user-functionalities">User functionalities</h3>
+<p>Functionalities to get information of a user are available.</p>
+<ul>
+<li>You can retrieve all users with the command:\
+<span style="color:green"> <em><a href="http://127.0.0.1:9096/users?id=all">http://127.0.0.1:9096/users?id=all</a></em> </span></li>
+<li>You can retrieve a single user by knowing its id with the command:\
+<span style="color:green"><em><a href="http://127.0.0.1:9096/device?id=USERID">http://127.0.0.1:9096/device?id=USERID</a></em> </span></li>
+<li><span style="color:red"><em>TODO</em> </span> aggiungere altri comandi</li>
+<li>You can perform a POST/PUT to insert/modify a user at the url:\
+<span style="color:green"><em><a href="http://127.0.0.1:9096/user">http://127.0.0.1:9096/user</a></em> </span>\
+wih the following json format:</li>
+</ul>
+<pre><code class="lang-javascript">{
+  <span class="hljs-attr">"user_id"</span>: <span class="hljs-string">"x1"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"xyz"</span>
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"Mario"</span>,
+  <span class="hljs-attr">"surname"</span>: <span class="hljs-string">"Rossi"</span>,
+  <span class="hljs-attr">"building_ids"</span>: [y1, y2, y3],
+  <span class="hljs-attr">"is_super"</span>: True,
+
+}
+</code></pre>
+<ul>
+<li>You can perform a DELETE to delete a user at the url:\
+<span style="color:green"><em><a href="http://127.0.0.1:9096/device?id=USERID">http://127.0.0.1:9096/device?id=USERID</a></em> </span></li>
+</ul>

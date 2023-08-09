@@ -1,0 +1,17 @@
+[
+    {
+        "catalog_name": "ifnif",
+        "sensors": [
+            {},
+            {},
+            ...
+        ]
+    }
+]
+
+{
+    "temperature": {
+        "unit": "°C",
+        "controllo"
+    },
+}

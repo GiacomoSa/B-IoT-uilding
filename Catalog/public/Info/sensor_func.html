@@ -1,0 +1,38 @@
+<h1 id="sensor-catalog">Sensor Catalog</h1>
+<p>In this page are reported the definition of sensor and all functionalities related. A sensor is installed within a room
+of a building.</p>
+<hr>
+<h3 id="sensor-architecture">Sensor architecture</h3>
+<p>Each of the sensors has the following characteristics:</p>
+<ul>
+<li>sensor id</li>
+<li>measurement type</li>
+<li>topic</li>
+<li>building id</li>
+<li>room id</li>
+</ul>
+<h3 id="sensor-functionalities">Sensor functionalities</h3>
+<p>Functionalities to get information of a sensor are available.</p>
+<ul>
+<li>You can retrieve all sensors with the command:
+<span style="color:green"> <em><a href="http://127.0.0.1:9096/sensor?id=all">http://127.0.0.1:9096/snros?id=all</a></em> </span></li>
+<li>You can retrieve a single sensor by knowing its id with the command:
+<span style="color:green"><em><a href="http://127.0.0.1:9096/sensor?id=SENSORID">http://127.0.0.1:9096/sensor?id=SENSORID</a></em> </span></li>
+<li><span style="color:red"><em>TODO</em> </span> aggiungere altri comandi</li>
+<li>You can perform a POST/PUT to insert/modify a sensor at the url:
+<span style="color:green"><em><a href="http://127.0.0.1:9096/sensor">http://127.0.0.1:9096/sensor</a></em> </span>
+wih the following json format:</li>
+</ul>
+<pre><code class="lang-javascript">{
+  <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"x1"</span>,
+  <span class="hljs-attr">"building_id"</span>: <span class="hljs-string">"y1"</span>,
+  <span class="hljs-attr">"room_id"</span>: <span class="hljs-string">"z1"</span>,
+  <span class="hljs-attr">"meas_type"</span>: <span class="hljs-string">"temperature"</span>,
+  <span class="hljs-attr">"topic"</span>: <span class="hljs-string">"/your/topic"</span>
+}
+</code></pre>
+<p>Note: a sensor can be inserted by authorized users only (Super Users).</p>
+<ul>
+<li>You can perform a DELETE to delete a sensor from a room of a building at the url:
+<span style="color:green"><em><a href="http://127.0.0.1:9096/sensor?id=SENSORID">http://127.0.0.1:9096/sensor?id=SENSORID</a></em> </span></li>
+</ul>
