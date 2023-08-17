@@ -116,7 +116,7 @@ class heating_control():
         self._paho_mqtt.disconnect()
 
 if __name__ == "__main__":
-    conf = json.load(open("settings.json"))  # File contenente broker, porta e basetopic
+    conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
     baseTopic = conf["baseTopic"]
     broker = conf["broker"]
     port = conf["port"]

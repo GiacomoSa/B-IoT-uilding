@@ -4,16 +4,15 @@ from MyMQTT import *
 import time
 import pandas as pd
 from datetime import datetime
-import requests
-from Connector.DeviceConnector import *
-
+import os
 class Sensor():
         """docstring for Sensor"""
         def __init__(self,buildingID,roomID,sensorID, measure, measure_unit):
+            print(os.getcwd())
             self.conf = json.load(open("settings.json"))  # File contenente broker, porta e basetopic
-            self.baseTopic = conf["baseTopic"]
-            self.broker = conf["broker"]
-            self.port = conf["port"]
+            self.baseTopic = self.conf["baseTopic"]
+            self.broker = self.conf["broker"]
+            self.port = self.conf["port"]
             self.measure = measure
             self.measure_unit = measure_unit
             self.buildingID=f"Building_{buildingID}"

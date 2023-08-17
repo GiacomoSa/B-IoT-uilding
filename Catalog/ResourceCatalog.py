@@ -451,12 +451,12 @@ class RegistrationManager:
 
     exposed = True
 
-    def GET(self, *uri, **params):
+    def POST(self, *uri, **params):
 
         command = str(uri)[2:-3]
 
         # SENSOR REGISTRATION
-        if command == "registration/sensor":
+        if command == "sensor":
             RC_name = params["RC_name"]
             ele = params['ele']
 
@@ -500,6 +500,7 @@ if __name__ == '__main__':
     cherrypy.tree.mount(CatalogBUILDING(buildings_db), '/building', conf)
     cherrypy.tree.mount(CatalogDEVICE(devices_db), '/device', conf)
     cherrypy.tree.mount(CatalogSENSOR(sensors_db), '/sensor', conf)
+    cherrypy.tree.mount(RegistrationManager(), '/registration', conf)
 
     cherrypy.config.update({'server.socket_port': port})
     cherrypy.config.update(conf)

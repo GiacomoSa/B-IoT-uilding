@@ -109,7 +109,7 @@ def registration(setting_file, service_file):  # IN ORDER TO REGISTER ON THE RES
         "measure"], rc_broker, rc_port, rc["owner"]
 
 if __name__ == '__main__':
-        conf=json.load(open("settings.json")) #File contenente broker, porta e basetopic
+        conf=json.load(open("Connector/settings.json")) #File contenente broker, porta e basetopic
         #Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
         Sensors=[]
         baseTopic=conf["baseTopic"]

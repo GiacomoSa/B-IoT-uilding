@@ -70,7 +70,7 @@ class Sensor():
             self.client.stop()
 
 if __name__ == '__main__':
-        conf=json.load(open("settings.json"))
+        conf=json.load(open("Connector/settings.json"))
         Sensors=[]
         buildingID=conf["baseTopic"]
         floorIDs=[str(i)  for i in range(1)]

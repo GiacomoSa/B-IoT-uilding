@@ -34,7 +34,7 @@ import time
 import requests
 import json
 import cherrypy
-import
+from sensor_temperature import Sensor as SensorTemperature
 
 class DeviceConnector:
 
@@ -63,7 +63,7 @@ class DeviceConnector:
         RC_info = r.json()
         self.RC_host = RC_info["host"]
         self.RC_port = RC_info["port"]
-        # self.RC_name = RC_info["catalog_name"]
+        self.RC_name = RC_info["catalog_name"]
 
     def registration(self):  # devices and resources registration inside the RESOURCE CATALOG -> called in a loop
         # per ora mi vengono solo in mente sensori/attuatori che sono gestiti da un Device Connector
@@ -73,7 +73,7 @@ class DeviceConnector:
         with open(self.sensors_file, 'r') as f:
             sensors_list = json.load(f)
 
-        for sensor in sensors_list:
+        for sensor in sensors_list['sensors']:
             url = self.RC_host + ':' + self.RC_port + '/' + command
 
             payload = {'RC_name': self.RC_name, 'ele': json.dumps(sensor)}
@@ -136,9 +136,23 @@ if __name__ == '__main__':
     for sensor in sensors['sensors']:
         if sensor['measure'] == 'temperature':
             # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-            sensor = Sensor(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
+            sensor = SensorTemperature(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
                             measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+            sensor.start()
             temp_sens.append(sensor)
+
+    start_send = time.time()
+    start_reg = time.time()
+    while True:
+        if time.time() - start_send > 1:
+            pass
+            #for sensor in temp_sens:
+            #    sensor.sendData() #Publish
+            #    start_send = time.time()
+        if time.time() - start_reg > 1:
+            raspberry.registration()
+            start_reg = time.time()
+
 
 
 
