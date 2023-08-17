@@ -34,12 +34,12 @@ import time
 import requests
 import json
 import cherrypy
-
+import
 
 class DeviceConnector:
 
     def __init__(self):
-        with open("Catalog/service_catalog_info.json", 'r') as f:
+        with open("../Catalog/service_catalog_info.json", 'r') as f:
             config = json.load(f)
 
         self.ServiceCatalog_host = config["service_host"]
@@ -57,7 +57,7 @@ class DeviceConnector:
 
     def request_RC(self, RC_name):
         command = self.request_RC_command
-        url = self.ServiceCatalog_host + ':' + self.ServiceCatalog_port + '/' + command
+        url = self.ServiceCatalog_host + ':' + self.ServiceCatalog_port + '/' + command + f"?RC_name={RC_name}"
         payload = {"RC_name": RC_name}
         r = requests.get(url=url, data=payload)
         RC_info = r.json()
@@ -117,10 +117,30 @@ class ServicesComponent:
 
 
 if __name__ == '__main__':
-
     raspberry = DeviceConnector()
     RC_name = "B(IoT)uilding"
     raspberry.request_RC(RC_name=RC_name)
+    #Fa partire lo start di tutti i sensori
+    #Il device connector deve far fare il .publish
+    #Prima fase di requestRC. poi una fase di registration, ogni tot second fa partire il .publish dei sensori
+    #OGni 50 secondi per esempio di nuovo registration. Magari si è aggiunto un nuovo sensore che è aggiunto solo al file locale
+    # sensor.json ma non in quello del database, Appena c'è un nuovo sensore li stoppo tutti e poi li faccio ripartire con quello nuovo,
+    # ma fino alla registration il resource non sa che esiste e quindi nessuno potrà vedere i suoi dati
+
+    sensors = json.load(open("sensors.json"))
+    temp_sens = []
+    hum_sens = []
+    part_sens = []
+    motion_sens = []
+
+    for sensor in sensors['sensors']:
+        if sensor['measure'] == 'temperature':
+            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+            sensor = Sensor(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
+                            measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+            temp_sens.append(sensor)
+
+
 
     # DEVICE CONNECTOR INFO
 
@@ -147,4 +167,6 @@ if __name__ == '__main__':
         time.sleep(30*60) # ogni 30 min?
 
     cherrypy.engine.block()
+
+
 

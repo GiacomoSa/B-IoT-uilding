@@ -9,15 +9,18 @@ from Connector.DeviceConnector import *
 
 class Sensor():
         """docstring for Sensor"""
-        def __init__(self,base_topic,buildingID,roomID,sensorID,broker,port, measure, measure_unit):
+        def __init__(self,buildingID,roomID,sensorID, measure, measure_unit):
+            self.conf = json.load(open("settings.json"))  # File contenente broker, porta e basetopic
+            self.baseTopic = conf["baseTopic"]
+            self.broker = conf["broker"]
+            self.port = conf["port"]
             self.measure = measure
             self.measure_unit = measure_unit
             self.buildingID=f"Building_{buildingID}"
             self.roomID=f"Room_{roomID}"
             self.sensorID=f"Sensor_{str(sensorID)}"
-            self.baseTopic = base_topic
             self.topic='/'.join([self.baseTopic, self.buildingID,self.roomID, self.measure, self.sensorID])
-            self.client=MyMQTT(self.sensorID,broker,port,None)
+            self.client=MyMQTT(self.sensorID,self.broker,self.port,None)
             self.__message={
                 'buildingID':self.buildingID,
                 'roomID':self.roomID,
@@ -75,24 +78,17 @@ class Sensor():
 
 if __name__ == '__main__':
     # https://9aca-87-4-225-230.ngrok.io/
-        connector = DeviceConnector()
-        connector.request_RC("B(IoT)uilding")
-        conf=json.load(open("settings.json")) #File contenente broker, porta e basetopic
-        baseTopic = conf["baseTopic"]
-        broker = conf["broker"]
-        port = conf["port"]
+
+
         #Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
         sensors = json.load(open("sensors.json"))
         temp_sens=[]
         for sensor in sensors['sensors']:
             if sensor['measure'] == 'temperature':
                 #class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-                sensor=Sensor(base_topic=baseTopic,
-                              buildingID=sensor['building_id'],
+                sensor=Sensor(buildingID=sensor['building_id'],
                               roomID=sensor['room_id'],
                               sensorID=sensor['sensor_id'],
-                              broker=broker,
-                              port=port,
                               measure=sensor['measure'],
                               measure_unit=sensor['measure_unit'])
                 temp_sens.append(sensor)

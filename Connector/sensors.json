@@ -1,0 +1,19 @@
+{
+    "catalog_id": 0,
+    "sensors": [
+        {
+            "sensor_id": "01",
+            "building_id": "b1",
+            "room_id": "Bathroom",
+            "measure": "temperature",
+            "measure_unit": "C"
+        },
+        {
+            "sensor_id": "01",
+            "building_id": "b1",
+            "room_id": "Bathroom",
+            "measure": "humidity",
+            "measure_unit": "%"
+        }
+    ]
+}
