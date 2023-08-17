@@ -476,8 +476,6 @@ class RegistrationManager:
         # DEVICE REGISTRATION
 
 
-
-
 if __name__ == '__main__':
 
     # RESOURCE CATALOG INFO
