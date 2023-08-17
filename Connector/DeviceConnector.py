@@ -39,7 +39,7 @@ import cherrypy
 class DeviceConnector:
 
     def __init__(self):
-        with open('../Catalog/service_catalog_info.json', 'r') as f:
+        with open("Catalog/service_catalog_info.json", 'r') as f:
             config = json.load(f)
 
         self.ServiceCatalog_host = config["service_host"]
