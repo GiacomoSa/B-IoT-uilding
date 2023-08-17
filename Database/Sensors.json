@@ -1,17 +1,21 @@
 [
     {
-        "catalog_name": "ifnif",
-        "sensors": [
-            {},
-            {},
-            ...
-        ]
+    "catalog_id": "",
+    "sensors":[
+        {
+            "control_id": "01",
+            "building_id": "b1",
+            "room_id": "Bathroom",
+            "sensor_id": "01",
+            "measure_to_check": "temperature"
+        },
+        {
+            "control_id": "01",
+            "building_id": "b1",
+            "room_id": "Bathroom",
+            "sensor_id": "01",
+            "measure_to_check": "humidity"
+        }
+    ]
     }
 ]
-
-{
-    "temperature": {
-        "unit": "°C",
-        "controllo"
-    },
-}

@@ -98,6 +98,7 @@ class RCManager: # cambiare nome in RCManager ????
         else:
             raise cherrypy.HTTPError(400, 'Bad Request')
 
+
     def POST(self, *uri, **params):
 
         command = str(uri)[2:-3]
