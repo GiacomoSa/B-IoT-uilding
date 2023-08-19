@@ -472,7 +472,7 @@ class RegistrationManager:
                     break
 
             if found:
-                sensors_list.append(ele)
+                sensors_list.append(json.loads(ele))
 
             with open(self.sensors_db, 'w') as f:
                 json.dump(connector_list, f)

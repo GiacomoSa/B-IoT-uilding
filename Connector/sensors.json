@@ -14,6 +14,14 @@
             "room_id": "Bathroom",
             "measure": "humidity",
             "measure_unit": "%"
+        },
+        {
+            "sensor_id": "03",
+            "building_id": "b1",
+            "room_id": "Bathroom",
+            "measure": "motion",
+            "measure_unit": "bo"
         }
+
     ]
 }
