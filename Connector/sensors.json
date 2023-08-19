@@ -1,5 +1,5 @@
 {
-    "catalog_id": 0,
+    "catalog_id": "B(IoT)uilding",
     "sensors": [
         {
             "sensor_id": "01",
@@ -9,7 +9,7 @@
             "measure_unit": "C"
         },
         {
-            "sensor_id": "01",
+            "sensor_id": "02",
             "building_id": "b1",
             "room_id": "Bathroom",
             "measure": "humidity",

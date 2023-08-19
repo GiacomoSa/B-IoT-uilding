@@ -461,19 +461,42 @@ class RegistrationManager:
             ele = params['ele']
 
             with open(self.sensors_db, 'r') as f:
-                sensors_list = json.load(f)
+                connector_list = json.load(f)
 
             found = False
 
-            for s in sensors_list[RC_name]:
-                if s["sensor_id"] == ele["sensor_id"]:
+            for connector in connector_list: #questo connector è un dizionario con primo elemento l'id del catalog, secondo elemento lista di sensori
+                if RC_name == connector['catalog_id']:
+                    sensors_list = connector['sensors']
                     found = True
+                    break
 
-            if not found:
+            if found:
                 sensors_list.append(ele)
+
             with open(self.sensors_db, 'w') as f:
-                json.dump(sensors_list, f)
+                json.dump(connector_list, f)
         # DEVICE REGISTRATION
+
+    def DELETE(self, *uri, **params):
+
+        command = str(uri)[2:-3]
+
+        if command == "allsensors":
+            RC_name = params["RC_name"]
+            with open(self.sensors_db, 'r') as f:
+                connector_list = json.load(f)
+
+            found = False
+
+            for connector in connector_list:  # questo connector è un dizionario con primo elemento l'id del catalog, secondo elemento lista di sensori
+                if RC_name == connector['catalog_id']:
+                    connector['sensors'] = []
+                    found = True
+                    break
+
+            with open(self.sensors_db, 'w') as f:
+                json.dump(connector_list, f)
 
 
 if __name__ == '__main__':

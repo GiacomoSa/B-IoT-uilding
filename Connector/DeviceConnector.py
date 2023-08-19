@@ -73,6 +73,11 @@ class DeviceConnector:
         with open(self.sensors_file, 'r') as f:
             sensors_list = json.load(f)
 
+        delete_command = "registration/allsensors"
+        url = self.RC_host + ':' + self.RC_port + '/' + delete_command + "?RC_name=" + self.RC_name
+        delete_payload = {'RC_name': self.RC_name}
+        r = requests.delete(url, data=delete_payload)
+
         for sensor in sensors_list['sensors']:
             url = self.RC_host + ':' + self.RC_port + '/' + command
 
@@ -137,19 +142,20 @@ if __name__ == '__main__':
         if sensor['measure'] == 'temperature':
             # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
             sensor = SensorTemperature(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
-                            measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+                                       measure=sensor['measure'], measure_unit=sensor['measure_unit'])
             sensor.start()
             temp_sens.append(sensor)
 
     start_send = time.time()
     start_reg = time.time()
     while True:
-        if time.time() - start_send > 1:
-            pass
+        #if time.time() - start_send > 1:
+        #    pass
             #for sensor in temp_sens:
             #    sensor.sendData() #Publish
             #    start_send = time.time()
         if time.time() - start_reg > 1:
+            #Prima della registration il file coi sensor del database va svuotato
             raspberry.registration()
             start_reg = time.time()
 
