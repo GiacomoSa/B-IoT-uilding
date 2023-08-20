@@ -47,6 +47,7 @@ class DeviceConnector:
         self.request_RC_command = config["RC_request"]
         self.sensor_registration_command = config["DC_sensor_registration"]
         self.device_registration_command = config["DC_device_registration"]
+        self.sensors_delete_command = config["delete_sensors"]
         self.RC_host = ""
         self.RC_port = ""
         self.RC_name = ""
@@ -73,7 +74,7 @@ class DeviceConnector:
         with open(self.sensors_file, 'r') as f:
             sensors_list = json.load(f)
 
-        delete_command = "registration/allsensors"
+        delete_command = self.sensors_delete_command
         url = self.RC_host + ':' + self.RC_port + '/' + delete_command + "?RC_name=" + self.RC_name
         delete_payload = {'RC_name': self.RC_name}
         r = requests.delete(url, data=delete_payload)
@@ -160,7 +161,8 @@ if __name__ == '__main__':
             start_reg = time.time()
 
 
-
+    # quando faremo la comunicazione dall'app con Andre, spostare questa parte (in cui si monta il tree di cherrypy...)
+    # prima del while True sopra
 
     # DEVICE CONNECTOR INFO
 
