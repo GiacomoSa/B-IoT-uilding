@@ -11,7 +11,8 @@ import sys
 import cherrypy
 import paho.mqtt.client as PahoMQTT
 import time
-import datetime.datetime as datetime
+import datetime as datetime
+
 class heating_control():
     exposed = True
 

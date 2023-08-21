@@ -11,36 +11,49 @@ import sys
 import cherrypy
 import paho.mqtt.client as PahoMQTT
 import time
+import datetime
 
 class ventilation_control():
     exposed = True
 
-    def __init__(self, clientID, baseTopic, buildingID, roomID, sensorID, measure, broker, port, threshold):  # notifier,
-        self.control_type = 'ventilation'
-        self.buildingID = f"Building_{buildingID}"
-        self.roomID = f"Room_{roomID}"
-        self.sensorID = f"Sensor_{str(sensorID)}"
-        self.baseTopic = baseTopic
-        self.measure = measure
-        self.threshold = threshold
-        # status = 0 if heating turned on, status = 1 if turned off
-        self.status = 1
-
+    def __init__(self, controlID, baseTopic, buildingID, roomID, sensorID, measure, broker, port, threshold):  # notifier,
         self.broker = broker
         self.port = port
-        # self.notifier = notifier
-        self.clientID = clientID
-        # TODO forse ho bisogno di due topic, uno a cui mi iscrivo e uno su cui pubblico
-        self.sub_topic ='/'.join([self.baseTopic, self.buildingID ,self.roomID, self.measure, self.sensorID])
+
+        self.control_ID = controlID
+        self.measure = measure
+        self.control_type = self.get_controltype(self.measure)
+        self.buildingID = f"Building_{buildingID}"
+        self.roomID = f"Room_{roomID}"
+        self.subscribed_sensor = f"Sensor_{str(sensorID)}"
+        self.baseTopic = baseTopic
+
+        self.threshold = threshold
+        self.status = 'on'
+        self.time_schedule = {}
+        self.time_schedule['on'] = "8"
+        self.time_schedule['off'] = "17"
+
         self._isSubscriber = True
-        self.pub_topic = '/'.join([self.baseTopic, self.buildingID ,self.roomID, self.control_type])
+        self.sub_topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.measure, self.subscribed_sensor])
+        self.pub_topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.control_type])
 
         # create an instance of paho.mqtt.client
-        self._paho_mqtt = PahoMQTT.Client(clientID, False)
-
+        self._paho_mqtt = PahoMQTT.Client(controlID, False)
         # register the callback
         self._paho_mqtt.on_connect = self.myOnConnect
         self._paho_mqtt.on_message = self.myOnMessageReceived
+
+    def get_controltype(self, measure):
+        control_types = json.load(open("controls.json"))
+        return control_types[f'{measure}']
+
+    def time_control(self):
+        actual_hour=int(datetime.datetime.now().strftime("%#H")) # '#' is used to remove the leading zero, it owrks only for windows, for unix use '-'
+        if actual_hour>int(self.time_schedule['on']) or actual_hour>int(self.time_schedule['off']):
+            return True
+        else:
+            return False
 
     def myOnConnect(self, paho_mqtt, userdata, flags, rc):
         print("Connected to %s with result code: %d" % (self.broker, rc))
@@ -133,22 +146,26 @@ class ventilation_control():
         payload = json.loads(rcv_msg.payload)
         measure_to_check = float(payload['e'][0]['value'])
         AIQ = self.AIQ(measure_to_check)
-        if AIQ <= self.threshold:
-            if self.status == 1:  # spento
-                self.status = 0  # acceso
-                pub_msg = f"{self.measure} below threashold, {self.control_type} turned on"
-                self.myPublish(self.pub_topic, pub_msg)
+        if self.time_control():
+            if AIQ >= self.threshold:
+                if self.status == 'off':  # spento
+                    self.status = 'on'  # acceso
+                    pub_msg = f"{self.measure} above threashold, {self.control_type} turned {self.status}"
+                    self.myPublish(self.pub_topic, pub_msg)
+                else:
+                    pub_msg = f"{self.measure} above threashold, {self.control_type} already {self.status}"
+                    self.myPublish(self.pub_topic, pub_msg)
             else:
-                pub_msg = f"{self.measure} below threashold, {self.control_type} already on"
-                self.myPublish(self.pub_topic, pub_msg)
+                if self.status == 'on':  # acceso
+                    self.status = 'off'  # spento
+                    pub_msg = f"{self.measure} below threashold, {self.control_type} turned {self.status}"
+                    self.myPublish(self.pub_topic, pub_msg)
+                else:
+                    pub_msg = f"{self.measure} below threashold, {self.control_type} already {self.status}"
+                    self.myPublish(self.pub_topic, pub_msg)
         else:
-            if self.status == 0:  # acceso
-                self.status = 1  # spento
-                pub_msg = f"{self.measure} above threashold, {self.control_type} turned off"
-                self.myPublish(self.pub_topic, pub_msg)
-            else:
-                pub_msg = f"{self.measure} above threashold, {self.control_type} already off"
-                self.myPublish(self.pub_topic, pub_msg)
+            pub_msg = f"{self.control_type} control cannot be used during this time period"
+            self.myPublish(self.pub_topic, pub_msg)
 
 
     def myPublish(self, topic, pub_msg):
@@ -157,3 +174,31 @@ class ventilation_control():
         print("publishing '%s' with topic '%s'" % (pub_msg, topic))
         # publish a message with a certain topic
         self._paho_mqtt.publish(topic, pub_msg, 2)
+
+if __name__ == "__main__":
+    conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
+    # Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
+    Sensors = []
+    baseTopic = conf["baseTopic"]
+    BuildingID = [str(i) for i in range(1)]
+    roomIDs = [f"{BuildingID[i]}_{i + 1}" for i in range(len(BuildingID))]
+    broker = conf["broker"]
+    port = conf["port"]
+    # I need clientID, baseTopic, buildingID, roomID, measure, broker, port, notifier, threshold
+    heating_control = ventilation_control(controlID='Prova_ventilation',
+                                      baseTopic=baseTopic,
+                                      buildingID=BuildingID[0],
+                                      roomID=roomIDs[0],
+                                      sensorID=0,
+                                      measure='particulate',
+                                      broker=broker,
+                                      port=port,
+                                      threshold=30.0)
+    heating_control.stop()
+    heating_control.start()
+    a = 0
+    while (a < 30):
+        a += 1
+        time.sleep(5)
+
+    heating_control.stop()
