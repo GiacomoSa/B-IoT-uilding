@@ -7,30 +7,35 @@ from datetime import datetime
 
 class Sensor():
         """docstring for Sensor"""
-        def __init__(self,buildingID,floorID,roomID,sensorID,broker,port, measure, measure_unit):
+
+        def __init__(self, buildingID, roomID, sensorID, measure, measure_unit):
+            self.conf = json.load(open("settings.json"))  # File contenente broker, porta e basetopic
+            self.baseTopic = self.conf["baseTopic"]
+            self.broker = self.conf["broker"]
+            self.port = self.conf["port"]
+
             self.measure = measure
             self.measure_unit = measure_unit
-            self.buildingID=buildingID
-            self.floorID=floorID
-            self.roomID=roomID
-            self.sensorID=str(sensorID)
-            self.topic='/'.join([self.buildingID,self.floorID,self.roomID,self.sensorID, self.measure])
-            self.client=MyMQTT(self.sensorID,broker,port,None)
-            self.__message={
-                'buildingID':self.buildingID,
-                'floorID':self.floorID,
-                'roomID':self.roomID,
-                'bn':self.sensorID,
+            self.buildingID = f"Building_{buildingID}"
+            self.roomID = f"Room_{roomID}"
+            self.sensorID = f"Sensor_{str(sensorID)}"
+
+            self.topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.measure, self.sensorID])
+            self.client = MyMQTT(self.sensorID, self.broker, self.port, None)
+            self.__message = {
+                'buildingID': self.buildingID,
+                'roomID': self.roomID,
+                'bn': self.sensorID,
                 'e':
                     [
                         {
                             'n': self.measure,
-                            'value':'',
+                            'value': '',
                             'unit': self.measure_unit,
-                            'timestamp':''
+                            'timestamp': ''
                         },
-                        ]
-                }
+                    ]
+            }
 
         def getValue(self):
 
@@ -80,9 +85,11 @@ if __name__ == '__main__':
         s=0
         for floor in floorIDs:
             for room in roomIDs:
-                sensor=Sensor(buildingID,floor,room,s,broker,port, "humidity", "%")
-                Sensors.append(sensor)
-                s+=1
+                sensor = Sensor(buildingID=sensor['building_id'],
+                                roomID=sensor['room_id'],
+                                sensorID=sensor['sensor_id'],
+                                measure=sensor['measure'],
+                                measure_unit=sensor['measure_unit'])
         for sensor in Sensors:
             sensor.start()
         while True:

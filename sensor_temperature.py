@@ -8,16 +8,17 @@ import os
 class Sensor():
         """docstring for Sensor"""
         def __init__(self,buildingID,roomID,sensorID, measure, measure_unit):
-            print(os.getcwd())
             self.conf = json.load(open("settings.json"))  # File contenente broker, porta e basetopic
             self.baseTopic = self.conf["baseTopic"]
             self.broker = self.conf["broker"]
             self.port = self.conf["port"]
+
             self.measure = measure
             self.measure_unit = measure_unit
             self.buildingID=f"Building_{buildingID}"
             self.roomID=f"Room_{roomID}"
             self.sensorID=f"Sensor_{str(sensorID)}"
+
             self.topic='/'.join([self.baseTopic, self.buildingID,self.roomID, self.measure, self.sensorID])
             self.client=MyMQTT(self.sensorID,self.broker,self.port,None)
             self.__message={
@@ -101,6 +102,3 @@ if __name__ == '__main__':
                 for sensor in temp_sens:
                     sensor.sendData()
                     start_send = time.time()
-            if  time.time() - start_reg > 30:
-                connector.registration()
-                start_reg = time.time()
