@@ -26,5 +26,12 @@
         "room_id": "Bathroom",
         "sensor_id": "04",
         "measure_to_check": "particulate"
+    },
+    {
+        "control_id": "05",
+        "building_id": "b1",
+        "room_id": "Bathroom",
+        "sensor_id": "03",
+        "measure_to_check": "particulate"
     }
 ]
