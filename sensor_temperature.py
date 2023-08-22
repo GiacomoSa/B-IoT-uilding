@@ -98,7 +98,7 @@ if __name__ == '__main__':
         start_send = time.time()
         start_reg = time.time()
         while True:
-            if time.time() - start_send > 30:
+            if time.time() - start_send > 1:
                 for sensor in temp_sens:
                     sensor.sendData()
                     start_send = time.time()

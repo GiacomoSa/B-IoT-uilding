@@ -59,28 +59,24 @@ class Sensor():
 
 
 if __name__ == '__main__':
-        conf=json.load(open("Connector/settings.json")) #File contenente broker, porta e basetopic
-        #Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
-        Sensors=[]
-        baseTopic=conf["baseTopic"]
-        BuildingID=[str(i)  for i in range(1)]
-        roomIDs=[f"{BuildingID[i]}_{i+1}" for i in range(len(BuildingID))]
-        broker=conf["broker"]
-        port=conf["port"]
-        s=0
-        for building in BuildingID:
-            for room in roomIDs:
-                #class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-                sensor=Sensor(buildingID=building,
-                              roomID=room,
-                              sensorID=s,
-                              measure="motion",
-                              measure_unit=f"people")
-                Sensors.append(sensor)
-                s+=1
-        for sensor in Sensors:
-            sensor.start()
-        while True:
-            for sensor in Sensors:
+    sensors = json.load(open("sensors.json"))
+    temp_sens = []
+    for sensor in sensors['sensors']:
+        if sensor['measure'] == 'motion':
+            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+            sensor = Sensor(buildingID=sensor['building_id'],
+                            roomID=sensor['room_id'],
+                            sensorID=sensor['sensor_id'],
+                            measure=sensor['measure'],
+                            measure_unit=sensor['measure_unit'])
+            temp_sens.append(sensor)
+    for sensor in temp_sens:
+        sensor.start()
+
+    start_send = time.time()
+    start_reg = time.time()
+    while True:
+        if time.time() - start_send > 1:
+            for sensor in temp_sens:
                 sensor.sendData()
-                time.sleep(5)
+                start_send = time.time()

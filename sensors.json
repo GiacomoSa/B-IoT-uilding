@@ -9,11 +9,25 @@
             "measure_unit": "C"
         },
         {
-            "sensor_id": "01",
+            "sensor_id": "02",
             "building_id": "b1",
             "room_id": "Bathroom",
             "measure": "humidity",
             "measure_unit": "%"
+        },
+        {
+            "sensor_id": "03",
+            "building_id": "b1",
+            "room_id": "Bathroom",
+            "measure": "motion",
+            "measure_unit": "C"
+        },
+        {
+            "sensor_id": "04",
+            "building_id": "b1",
+            "room_id": "Bathroom",
+            "measure": "particulate",
+            "measure_unit": "C"
         }
     ]
 }

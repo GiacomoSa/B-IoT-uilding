@@ -82,6 +82,7 @@ class ventilation_control():
         self._paho_mqtt.disconnect()
 
     def Breakpoints(self, C_P):
+        print(C_P)
         if C_P <= 54:
             BP_LO = 0
             BP_HI = 54
@@ -177,28 +178,31 @@ class ventilation_control():
 
 if __name__ == "__main__":
     conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
-    # Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
-    Sensors = []
     baseTopic = conf["baseTopic"]
-    BuildingID = [str(i) for i in range(1)]
-    roomIDs = [f"{BuildingID[i]}_{i + 1}" for i in range(len(BuildingID))]
     broker = conf["broker"]
     port = conf["port"]
-    # I need clientID, baseTopic, buildingID, roomID, measure, broker, port, notifier, threshold
-    heating_control = ventilation_control(controlID='Prova_ventilation',
-                                      baseTopic=baseTopic,
-                                      buildingID=BuildingID[0],
-                                      roomID=roomIDs[0],
-                                      sensorID=0,
-                                      measure='particulate',
-                                      broker=broker,
-                                      port=port,
-                                      threshold=30.0)
-    heating_control.stop()
-    heating_control.start()
+
+    controls = json.load(open("actuators.json"))
+    heat_controls = []
+    for control in controls:
+        if control['measure_to_check'] == "particulate":
+            heating_control = ventilation_control(
+                baseTopic=baseTopic,
+                broker=broker,
+                port=port,
+                controlID=control['control_id'],
+                buildingID=control['building_id'],
+                roomID=control['room_id'],
+                sensorID=control['sensor_id'],
+                measure=control['measure_to_check'],
+                threshold=30.0)
+            heat_controls.append(heating_control)
+    for control in heat_controls:
+        control.stop()
+        control.start()
     a = 0
     while (a < 30):
         a += 1
         time.sleep(5)
-
-    heating_control.stop()
+    for control in heat_controls:
+        control.stop()

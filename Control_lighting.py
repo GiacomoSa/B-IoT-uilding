@@ -75,12 +75,12 @@ class lighting_control():
                     pub_msg = f"{self.measure} equal to zero, {self.control_type} turned {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
             else: #se ci sta gente
-                if self.status == 'on': #se acceso, lo lascio acceso
-                    pub_msg = f"{self.measure} not zero, {self.control_type} already {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
-                else:
-                    self.status = 'off'  # se spento lo accenso
+                if self.status == 'off': #se spento, lo accendo
+                    self.status = 'on'
                     pub_msg = f"{self.measure} not zero, {self.control_type} turned {self.status}"
+                    self.myPublish(self.pub_topic, pub_msg)
+                else: # se acceso lo lascio acceso
+                    pub_msg = f"{self.measure} not zero, {self.control_type} already {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
         else:
             pub_msg = f"{self.control_type} control cannot be used during this time period"
@@ -119,28 +119,31 @@ class lighting_control():
 
 if __name__ == "__main__":
     conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
-    # Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
-    Sensors = []
     baseTopic = conf["baseTopic"]
-    BuildingID = [str(i) for i in range(1)]
-    roomIDs = [f"{BuildingID[i]}_{i + 1}" for i in range(len(BuildingID))]
     broker = conf["broker"]
     port = conf["port"]
-    # I need clientID, baseTopic, buildingID, roomID, measure, broker, port, notifier, threshold
-    heating_control = lighting_control(controlID='Prova_Lighting',
-                                      baseTopic=baseTopic,
-                                      buildingID=BuildingID[0],
-                                      roomID=roomIDs[0],
-                                      sensorID=0,
-                                      measure='motion',
-                                      broker=broker,
-                                      port=port,
-                                      threshold=30.0)
-    heating_control.stop()
-    heating_control.start()
+
+    controls = json.load(open("actuators.json"))
+    heat_controls = []
+    for control in controls:
+        if control['measure_to_check'] == "motion":
+            heating_control = lighting_control(
+                baseTopic=baseTopic,
+                broker=broker,
+                port=port,
+                controlID=control['control_id'],
+                buildingID=control['building_id'],
+                roomID=control['room_id'],
+                sensorID=control['sensor_id'],
+                measure=control['measure_to_check'],
+                threshold=30.0)
+            heat_controls.append(heating_control)
+    for control in heat_controls:
+        control.stop()
+        control.start()
     a = 0
     while (a < 30):
         a += 1
         time.sleep(5)
-
-    heating_control.stop()
+    for control in heat_controls:
+        control.stop()

@@ -49,7 +49,7 @@ class heating_control():
         return control_types[f'{measure}']
 
     def time_control(self):
-        actual_hour=int(datetime.now().strftime("%#H")) # '#' is used to remove the leading zero, it owrks only for windows, for unix use '-'
+        actual_hour=int(datetime.datetime.now().strftime("%#H")) # '#' is used to remove the leading zero, it owrks only for windows, for unix use '-'
         if actual_hour>int(self.time_schedule['on']) or actual_hour>int(self.time_schedule['off']):
             return True
         else:
