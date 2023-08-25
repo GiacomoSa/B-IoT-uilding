@@ -330,7 +330,7 @@ class CatalogDEVICE: # mounted on '/Users'
             raise cherrypy.HTTPError(400, f'Bad request - Device {id} not found')
 
 
-class CatalogSENSOR: # mounted on '/Sensors'
+class CatalogSENSOR: # mounted on '/sensors'
 
     def __init__(self, sensordb_file):
         self.sensordb_file = sensordb_file

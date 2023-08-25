@@ -95,6 +95,16 @@ class RCManager: # cambiare nome in RCManager ????
                         return json.dumps(rc)
             except:
                 raise cherrypy.HTTPError(400, 'Cannot find Resource Catalog')
+
+        elif command == "getAllRCs":
+            try:
+                with open(self.registered_rcs_db, 'r') as f:
+                    registered_rcs = json.load(f)
+
+                return json.dumps(registered_rcs)
+            except:
+                raise cherrypy.HTTPError(400, 'Bad Request')
+
         else:
             raise cherrypy.HTTPError(400, 'Bad Request')
 
