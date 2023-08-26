@@ -30,7 +30,7 @@ allora lo userò come un resource catalog, se voglio aggiungere una sorta di app
 LEZ 29/11/21
 """
 import time
-
+import random
 import requests
 import json
 import cherrypy
@@ -99,8 +99,7 @@ class DeviceConnector:
 
 # --- SERVICES COMPONENT --- #
 
-
-class ServicesComponent:
+class ServicesComponent: # mounted on /Data
 
     # MQTT COMMUNICATION
     # chiamiamo la funzione di publish di ogni singolo sensore associato a questo device connector (quindi nel file
@@ -110,6 +109,14 @@ class ServicesComponent:
     exposed = True
 
     def GET(self, *uri, **params):  # come passiamo l'id?? --> vedere con Andre
+        command = str(uri)[2:-3]
+        if command == "sensor": #params -> id, cosa misura
+
+            data = {
+                "sensor_id":"chiesa",
+                "value":random.gauss(25, 1)
+            }
+            return json.dumps(data)
         pass
 
     def POST(self, *uri, **params):  # per aggiungere sensori al device connector?
@@ -178,7 +185,7 @@ if __name__ == '__main__':
         }
     }
 
-    cherrypy.tree.mount(ServicesComponent(), '/DC', conf)
+    cherrypy.tree.mount(ServicesComponent(), '/Data', conf)
     cherrypy.config.update({'server.socket_port': port})
     cherrypy.config.update(conf)
 
