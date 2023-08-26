@@ -194,7 +194,7 @@ class CatalogUSER: # mounted on '/Users'
                 break
 
         if found:
-            raise cherrypy.HTTPError(400, f'User {new_user["username"]} already existing') # user already existing
+            raise cherrypy.HTTPError(400, f'User {new_user["username"]} already existing')  # user already existing
         else:
             self.insertUser(new_user)
 
