@@ -109,6 +109,12 @@ class ServicesComponent: # mounted on /Data
     exposed = True
 
     def GET(self, *uri, **params):  # come passiamo l'id?? --> vedere con Andre
+
+        # params --> building_id, room_id
+        # ci passiamo nel json dei sensori tutti quelli in QUELLA stanza
+        # costruendo una mini lista dei sensori della stanza
+        # con questa lista possiamo costruire il json data che segue
+
         command = str(uri)[2:-3]
         if command == "sensor": #params -> id, cosa misura
 
