@@ -186,9 +186,18 @@ class CatalogUSER: # mounted on '/Users'
         """
 
         new_user = json.loads(cherrypy.request.body.read())
-        self.insertUser(new_user)
 
-        return  # ???
+        found = False
+        for us in self.users:
+            if new_user["username"] == us["username"]:
+                found = True
+                break
+
+        if found:
+            raise cherrypy.HTTPError(400, f'User {new_user["username"]} already existing') # user already existing
+        else:
+            self.insertUser(new_user)
+
 
     def PUT(self, *uri, **params):
 
