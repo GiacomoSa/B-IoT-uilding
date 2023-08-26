@@ -2,6 +2,19 @@
     {
         "username": "mirko",
         "pw": "Corini",
-        "buildings": ["building0", "building3"]
+        "buildings": [
+            "building0",
+            "building3"
+        ]
+    },
+    {
+        "username": "Luca",
+        "pwd": "Dema",
+        "buildings": []
+    },
+    {
+        "username": "Luca",
+        "pwd": "Dema",
+        "buildings": []
     }
 ]
