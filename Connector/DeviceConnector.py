@@ -181,7 +181,7 @@ if __name__ == '__main__':
     with open('device_connector_info.json', 'r') as f:
         d_config = json.load(f)
 
-    port = d_config["connector_port"]
+    port = int(d_config["connector_port"])
 
     conf = {
         '/': {
