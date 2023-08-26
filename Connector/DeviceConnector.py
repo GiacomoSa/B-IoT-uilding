@@ -112,10 +112,32 @@ class ServicesComponent: # mounted on /Data
         command = str(uri)[2:-3]
         if command == "sensor": #params -> id, cosa misura
 
-            data = {
-                "sensor_id":"chiesa",
-                "value":random.gauss(25, 1)
-            }
+            data = [{
+                    "sensor_id": "chiesa",
+                    "value": random.gauss(25, 1),
+                    "measure": "temperatura"
+                },
+                {
+                    "sensor_id": "chiesa1",
+                    "value": random.gauss(50, 5),
+                    "measure": "humidity"
+                },
+                {
+                    "sensor_id": "chiesa2",
+                    "value": "off",
+                    "measure": "lighting"
+                },
+                {
+                    "sensor_id": "chiesa3",
+                    "value": random.randint(0, 10),
+                    "measure": "people"
+                },
+                {
+                    "sensor_id": "chiesa4",
+                    "value": random.gauss(200, 10),
+                    "measure": "PM10"
+                }
+            ]
             return json.dumps(data)
         pass
 
