@@ -154,23 +154,6 @@ if __name__ == '__main__':
             sensor.start()
             temp_sens.append(sensor)
 
-    start_send = time.time()
-    start_reg = time.time()
-    while True:
-        #if time.time() - start_send > 1:
-        #    pass
-            #for sensor in temp_sens:
-            #    sensor.sendData() #Publish
-            #    start_send = time.time()
-        if time.time() - start_reg > 1:
-            #Prima della registration il file coi sensor del database va svuotato
-            raspberry.registration()
-            start_reg = time.time()
-
-
-    # quando faremo la comunicazione dall'app con Andre, spostare questa parte (in cui si monta il tree di cherrypy...)
-    # prima del while True sopra
-
     # DEVICE CONNECTOR INFO
 
     with open('device_connector_info.json', 'r') as f:
@@ -191,9 +174,24 @@ if __name__ == '__main__':
 
     cherrypy.engine.start()
 
+    start_send = time.time()
+    start_reg = time.time()
     while True:
-        raspberry.registration()
-        time.sleep(30*60) # ogni 30 min?
+        #if time.time() - start_send > 1:
+        #    pass
+            #for sensor in temp_sens:
+            #    sensor.sendData() #Publish
+            #    start_send = time.time()
+        if time.time() - start_reg > 1:
+            #Prima della registration il file coi sensor del database va svuotato
+            raspberry.registration()
+            start_reg = time.time()
+
+
+    # quando faremo la comunicazione dall'app con Andre, spostare questa parte (in cui si monta il tree di cherrypy...)
+    # prima del while True sopra
+
+
 
     cherrypy.engine.block()
 
