@@ -1,6 +1,7 @@
 [
     {
         "username": "mirko",
+        "email": "andrea@corino.sium",
         "pw": "Corini",
         "buildings": [
             "building0",
@@ -9,7 +10,8 @@
     },
     {
         "username": "Luca",
-        "pwd": "Dema",
+        "email" : "luca@dema.pempem",
+        "pw": "Dema",
         "buildings": []
     }
 ]
