@@ -1,6 +1,6 @@
 [
     {
-        "building_id": "b1",
+        "building_id": "building0",
         "building_type": "house",
         "rooms": [
             "Bathroom",
@@ -11,7 +11,7 @@
         ]
     },
     {
-        "building_id": "b3",
+        "building_id": "building3",
         "building_type": "Museum",
         "rooms": [
             "A0",
