@@ -120,12 +120,12 @@ class ServicesComponent: # mounted on /Data
 
             data = [{
                     "sensor_id": "chiesa",
-                    "value": random.gauss(25, 1),
+                    "value": str(random.gauss(25, 1)) + " °C",
                     "measure": "temperatura"
                 },
                 {
                     "sensor_id": "chiesa1",
-                    "value": random.gauss(50, 5),
+                    "value": str(random.gauss(50, 5)) + " %",
                     "measure": "humidity"
                 },
                 {
@@ -135,12 +135,12 @@ class ServicesComponent: # mounted on /Data
                 },
                 {
                     "sensor_id": "chiesa3",
-                    "value": random.randint(0, 10),
+                    "value": str(random.randint(0, 10)) + " people",
                     "measure": "people"
                 },
                 {
                     "sensor_id": "chiesa4",
-                    "value": random.gauss(200, 10),
+                    "value": str(random.gauss(200, 10)) + " mug/cm^3", # VEDERE
                     "measure": "PM10"
                 }
             ]

@@ -280,7 +280,7 @@ class CatalogDEVICE: # mounted on '/Users'
         else:
             found = False
             for b in self.devices:
-                if b["user_id"] == id:
+                if b["device_id"] == id:
                     found = True
                     return json.dumps(b)
 
