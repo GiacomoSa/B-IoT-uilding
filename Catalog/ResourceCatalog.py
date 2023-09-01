@@ -240,7 +240,7 @@ class CatalogUSER: # mounted on '/Users'
             raise cherrypy.HTTPError(400, f'Bad request - User {id} not found')
 
 
-class CatalogDEVICE: # mounted on '/Users'
+class CatalogDEVICE: # mounted on '/devices'
 
     def __init__(self, devicedb_file):
         self.devicedb_file = devicedb_file
@@ -452,7 +452,106 @@ class CatalogSENSOR: # mounted on '/sensors'
             raise cherrypy.HTTPError(400, f'Bad request - Sensor {id} not found')
 
 
-class RegistrationManager:
+class CatalogRESOURCES: # mounted on /resource
+
+    def __init__(self, resourcedb_file):
+        self.resourcedb_file = resourcedb_file
+        with open(self.resourcedb_file, 'r') as file:
+            self.resources = json.load(file)
+
+    # ----- DEVICE -----
+    def insertResource(self, device_json):
+        self.resources.append(device_json)
+        with open(self.resourcedb_file, "w") as file:
+            json.dump(self.resources, file, indent=4)
+
+    def updateResource(self, updated_device, idx):
+        self.resources[idx] = copy.deepcopy(updated_device)
+        with open(self.resourcedb_file, "w") as file:
+            json.dump(self.resources, file, indent=4)
+
+    def deleteResource(self, idx):
+        self.resources.pop(idx)
+        with open(self.resourcedb_file, "w") as file:
+            json.dump(self.resources, file, indent=4)
+
+    exposed = True
+
+    def GET(self, *uri, **params):
+
+        try:
+            id = params["id"]
+
+        except:
+            raise cherrypy.HTTPError(400, 'Bad request')
+
+        if id == "all":
+            # ritorniamo tutti
+            return json.dumps(self.resources)
+
+        else:
+            found = False
+            for b in self.resources:
+                if b["resource_id"] == id:
+                    found = True
+                    return json.dumps(b)
+
+            if not found:
+                raise cherrypy.HTTPError(400, f'Bad request - Resource {id} not found')
+
+    def POST(self, *uri, **params):
+
+        """
+        add a new resource
+        """
+
+        new_resource = json.loads(cherrypy.request.body.read())
+        self.insertResource(new_resource)
+
+        return  # ???
+
+    def PUT(self, *uri, **params):
+
+        """
+        modify a resource info
+        """
+
+        try:
+            id = params["id"]
+        except:
+            raise cherrypy.HTTPError(400, 'Bad request')
+
+        found = False
+        for idx, resource in enumerate(self.resources):
+            if resource['resource_id'] == id:
+                found = True
+
+                updated_resource = json.loads(cherrypy.request.body.read())
+                self.updateResource(updated_resource, idx)
+                break
+
+        if not found:
+            raise cherrypy.HTTPError(400, f'Bad request - Device {id} not found')
+
+    def DELETE(self, *uri, **params):
+
+        try:
+            id = params["id"]
+
+        except:
+            raise cherrypy.HTTPError(400, 'Bad request')
+
+        found = False
+        for idx, resource in enumerate(self.resources):
+            if resource["resource_id"] == id:
+                self.deleteResource(idx)
+                break
+
+        if not found:
+            raise cherrypy.HTTPError(400, f'Bad request - Resource {id} not found')
+
+
+class RegistrationManager: # mounted on /registration
 
     def __init__(self):
         self.sensors_db = "../Database/Sensors.json"
@@ -521,6 +620,8 @@ if __name__ == '__main__':
     users_db = "../Database/Users.json"
     devices_db = "../Database/Devices.json"
     sensors_db = "../Database/Sensors.json"
+    resources_db = "../Database/Resources.json"
+
     conf = {
         '/': {
             'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
@@ -533,6 +634,7 @@ if __name__ == '__main__':
     cherrypy.tree.mount(CatalogDEVICE(devices_db), '/device', conf)
     cherrypy.tree.mount(CatalogSENSOR(sensors_db), '/sensor', conf)
     cherrypy.tree.mount(RegistrationManager(), '/registration', conf)
+    cherrypy.tree.mount(CatalogRESOURCES(resources_db), '/resource', conf)
 
     cherrypy.config.update({'server.socket_port': port})
     cherrypy.config.update(conf)

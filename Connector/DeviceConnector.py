@@ -34,6 +34,8 @@ import random
 import requests
 import json
 import cherrypy
+from typing import List
+
 from sensor_temperature import Sensor as SensorTemperature
 
 class DeviceConnector:
@@ -98,6 +100,10 @@ class DeviceConnector:
 
 
 # --- SERVICES COMPONENT --- #
+# VA INCLUSO SOPRA!!!!!!!!!!!!!!!!!!!!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 class ServicesComponent: # mounted on /Data
 
@@ -114,6 +120,11 @@ class ServicesComponent: # mounted on /Data
         # ci passiamo nel json dei sensori tutti quelli in QUELLA stanza
         # costruendo una mini lista dei sensori della stanza
         # con questa lista possiamo costruire il json data che segue
+
+        #sensore_che_mi_serve = temp_sens["room_id"] #alla buona
+        #value = sensore_che_mi_serve.getValue()
+        #return value
+
 
         command = str(uri)[2:-3]
         if command == "sensor": #params -> id, cosa misura
@@ -169,18 +180,21 @@ if __name__ == '__main__':
     # ma fino alla registration il resource non sa che esiste e quindi nessuno potrà vedere i suoi dati
 
     sensors = json.load(open("sensors.json"))
-    temp_sens = []
+    temp_sens: List[SensorTemperature] = []
     hum_sens = []
     part_sens = []
     motion_sens = []
 
+    # SIMULATION PART - SENSORS
+
     for sensor in sensors['sensors']:
         if sensor['measure'] == 'temperature':
             # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-            sensor = SensorTemperature(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
+            sens = SensorTemperature(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
                                        measure=sensor['measure'], measure_unit=sensor['measure_unit'])
-            sensor.start()
-            temp_sens.append(sensor)
+
+            sens.start()
+            temp_sens.append(sens)
 
     # DEVICE CONNECTOR INFO
 

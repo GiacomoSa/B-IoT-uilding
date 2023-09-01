@@ -1,0 +1,14 @@
+[
+    {
+        "catalog_id": "B(IoT)uilding",
+        "host": "http://127.0.0.1",
+        "app_host": "http://10.0.2.2",
+        "port": "9094"
+    },
+    {
+        "catalog_id": "catalog2",
+        "host": "prova2",
+        "app_host": "prova2_app",
+        "port": "prova2_port"
+    }
+]
