@@ -142,7 +142,7 @@ class DeviceConnector: # mounted on /Data
         # value = sensore_che_mi_serve.getValue()
         # return value
 
-        # url = "host:port/Data/sensor?building_id=0&room_id=Bathroom&measure=temperature
+        # url = "host:port/Data/sensor?building_id=0&room_id=Bathroom"
         command = str(uri)[2:-3]
         try:
             building_id = params["building_id"]
@@ -163,40 +163,67 @@ class DeviceConnector: # mounted on /Data
             }
 
             # vedere con Andre se str o numero
-
+            found = False
             for s in self.temp_sens:
-                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
                     data["value"] = s.getValue()
                     data["measure_unit"] = s.measure_unit
                     data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
+                    found = True
                     break
+            if not found:
+                data["measure"] = "temperature"
+                data["measure_unit"] = "C"
+                data["value"] = -1
+                message.append(copy.deepcopy(data))
 
+            found = False
             for s in self.hum_sens:
-                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
                     data["value"] = s.getValue()
                     data["measure_unit"] = s.measure_unit
                     data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
+                    found = True
                     break
+            if not found:
+                data["measure"] = "humidity"
+                data["measure_unit"] = "%"
+                data["value"] = -1
+                message.append(copy.deepcopy(data))
 
+            found = False
             for s in self.motion_sens:
-                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
                     data["value"] = s.getValue()
                     data["measure_unit"] = s.measure_unit
                     data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
+                    found = True
                     break
+            if not found:
+                data["measure"] = "motion"
+                data["measure_unit"] = "people"
+                data["value"] = -1
+                message.append(copy.deepcopy(data))
 
+            found = False
             for s in self.part_sens:
-                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
                     data["value"] = s.getValue()
                     data["measure_unit"] = s.measure_unit
                     data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
+                    found = True
                     break
+            if not found:
+                data["measure"] = "particulate"
+                data["measure_unit"] = "ppm"
+                data["value"] = -1
+                message.append(copy.deepcopy(data))
 
-            return json.dumps(data)
+            return json.dumps(message)
         pass
 
     def POST(self, *uri, **params):  # per aggiungere sensori al device connector?
@@ -271,9 +298,8 @@ if __name__ == '__main__':
     start_reg = time.time()
     while True:
         if time.time() - start_send > 5:
-            for sensor in temp_sens:
-                sensor.sendData() #Publish
-                start_send = time.time()
+            raspberry.sendData()
+            start_send = time.time()
         if time.time() - start_reg > 300:
             #Prima della registration il file coi sensor del database va svuotato
             raspberry.registration()

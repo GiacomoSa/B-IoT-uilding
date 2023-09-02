@@ -4,6 +4,7 @@ from MyMQTT import *
 import time
 import pandas as pd
 from datetime import datetime
+import os
 
 class Sensor():
         """docstring for Sensor"""
@@ -40,7 +41,8 @@ class Sensor():
         def getValue(self):
 
             measure = self.measure
-            temp = pd.read_csv(f"{measure}.csv")
+            path = os.path.dirname(__file__)
+            temp = pd.read_csv(os.path.join(path, f"{measure}.csv"))
             current_datetime = datetime.now()
 
             # Format the date as day/month/year

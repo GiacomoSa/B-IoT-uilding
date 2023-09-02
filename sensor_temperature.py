@@ -38,9 +38,9 @@ class Sensor():
 
         def getValue(self):
 
-
             measure = self.measure
-            temp = pd.read_csv(f"{measure}.csv")
+            path = os.path.dirname(__file__)
+            temp = pd.read_csv(os.path.join(path, f"{measure}.csv"))
             current_datetime = datetime.now()
 
             # Format the date as day/month/year
@@ -63,7 +63,7 @@ class Sensor():
 
         def sendData(self):
             message=self.__message
-            message['e'][0]['value'] = random.randint(20, 30) #self.getValue()
+            message['e'][0]['value'] = self.getValue()
             message['e'][0]['timestamp']=str(time.time())
             self.client.myPublish(self.topic,json.dumps(message))
             print("Published!\n" + json.dumps(message) + "\n")

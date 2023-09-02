@@ -28,7 +28,15 @@
             "room_id": "Bathroom",
             "measure": "particulate",
             "measure_unit": "ppm"
+        },
+        {
+            "sensor_id": "05",
+            "building_id": "0",
+            "room_id": "Kitchen",
+            "measure": "particulate",
+            "measure_unit": "ppm"
         }
+
 
     ]
 }
