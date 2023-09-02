@@ -33,12 +33,16 @@ import time
 import random
 import requests
 import json
+import copy
 import cherrypy
 from typing import List
 
 from sensor_temperature import Sensor as SensorTemperature
+from sensor_humidity import Sensor as SensorHumidity
+from sensor_motion import Sensor as SensorMotion
+from sensor_particulate import Sensor as SensorParticulate
 
-class DeviceConnector:
+class DeviceConnector: # mounted on /Data
 
     def __init__(self):
         with open("../Catalog/service_catalog_info.json", 'r') as f:
@@ -57,6 +61,22 @@ class DeviceConnector:
         # Device Connector --> ogni Device Connector fa riferimento solo ai sensori/attuatori collegati ad un certo rasp
         self.sensors_file = "sensors.json"
         self.devices_file = "devices.json"
+        # sensors list
+        self.temp_sens = []
+        self.hum_sens = []
+        self.part_sens = []
+        self.motion_sens = []
+
+    def add_and_start_sensor(self, sensor, meas):
+        sensor.start()
+        if meas == "temperature":
+            self.temp_sens.append(sensor)
+        elif meas == "humidity":
+            self.hum_sens.append(sensor)
+        elif meas == "motion":
+            self.motion_sens.append(sensor)
+        else: # PM
+            self.part_sens.append(sensor)
 
     def request_RC(self, RC_name):
         command = self.request_RC_command
@@ -98,20 +118,17 @@ class DeviceConnector:
             payload = {'RC_name': self.RC_name, 'ele': json.dumps(device)}
             r = requests.post(url, data=payload)
 
+    def sendData(self):
 
-# --- SERVICES COMPONENT --- #
-# VA INCLUSO SOPRA!!!!!!!!!!!!!!!!!!!!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        all_sensors = self.temp_sens + self.hum_sens + self.part_sens + self.motion_sens
+        for s in all_sensors:
+            s.sendData()
 
+    def stopSensors(self):
+        all_sensors = self.temp_sens + self.hum_sens + self.part_sens + self.motion_sens
+        for s in all_sensors:
+            s.stop()
 
-class ServicesComponent: # mounted on /Data
-
-    # MQTT COMMUNICATION
-    # chiamiamo la funzione di publish di ogni singolo sensore associato a questo device connector (quindi nel file
-    # "sensors.json")
-
-    # REST COMMUNICATION
     exposed = True
 
     def GET(self, *uri, **params):  # come passiamo l'id?? --> vedere con Andre
@@ -121,40 +138,64 @@ class ServicesComponent: # mounted on /Data
         # costruendo una mini lista dei sensori della stanza
         # con questa lista possiamo costruire il json data che segue
 
-        #sensore_che_mi_serve = temp_sens["room_id"] #alla buona
-        #value = sensore_che_mi_serve.getValue()
-        #return value
+        # sensore_che_mi_serve = temp_sens["room_id"] #alla buona
+        # value = sensore_che_mi_serve.getValue()
+        # return value
 
-
+        # url = "host:port/Data/sensor?building_id=0&room_id=Bathroom&measure=temperature
         command = str(uri)[2:-3]
-        if command == "sensor": #params -> id, cosa misura
+        try:
+            building_id = params["building_id"]
+            room_id = params["room_id"]
+        except:
+            raise cherrypy.HTTPError(400, "Bad request")
 
-            data = [{
-                    "sensor_id": "chiesa",
-                    "value": str(random.gauss(25, 1)) + " °C",
-                    "measure": "temperatura"
-                },
-                {
-                    "sensor_id": "chiesa1",
-                    "value": str(random.gauss(50, 5)) + " %",
-                    "measure": "humidity"
-                },
-                {
-                    "sensor_id": "chiesa2",
-                    "value": "off",
-                    "measure": "lighting"
-                },
-                {
-                    "sensor_id": "chiesa3",
-                    "value": str(random.randint(0, 10)) + " people",
-                    "measure": "people"
-                },
-                {
-                    "sensor_id": "chiesa4",
-                    "value": str(random.gauss(200, 10)) + " mug/cm^3", # VEDERE
-                    "measure": "PM10"
-                }
-            ]
+        if command == "sensor":
+
+            message = []
+
+            data = {
+                "building_id": building_id,
+                "room_id": room_id,
+                "measure": "",
+                "measure_unit": "",
+                "value": -1.0
+            }
+
+            # vedere con Andre se str o numero
+
+            for s in self.temp_sens:
+                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                    data["value"] = s.getValue()
+                    data["measure_unit"] = s.measure_unit
+                    data["measure"] = s.measure
+                    message.append(copy.deepcopy(data))
+                    break
+
+            for s in self.hum_sens:
+                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                    data["value"] = s.getValue()
+                    data["measure_unit"] = s.measure_unit
+                    data["measure"] = s.measure
+                    message.append(copy.deepcopy(data))
+                    break
+
+            for s in self.motion_sens:
+                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                    data["value"] = s.getValue()
+                    data["measure_unit"] = s.measure_unit
+                    data["measure"] = s.measure
+                    message.append(copy.deepcopy(data))
+                    break
+
+            for s in self.part_sens:
+                if s.building_id == f"Building_{building_id}" and s.room_id == f"Room_{room_id}":
+                    data["value"] = s.getValue()
+                    data["measure_unit"] = s.measure_unit
+                    data["measure"] = s.measure
+                    message.append(copy.deepcopy(data))
+                    break
+
             return json.dumps(data)
         pass
 
@@ -166,6 +207,7 @@ class ServicesComponent: # mounted on /Data
 
     def DELETE(self, *uri, **params):  # per cancellare un sensore rimosso?
         pass
+
 
 
 if __name__ == '__main__':
@@ -181,10 +223,7 @@ if __name__ == '__main__':
     # ma fino alla registration il resource non sa che esiste e quindi nessuno potrà vedere i suoi dati
 
     sensors = json.load(open("sensors.json"))
-    temp_sens: List[SensorTemperature] = []
-    hum_sens = []
-    part_sens = []
-    motion_sens = []
+
 
     # SIMULATION PART - SENSORS
 
@@ -193,9 +232,20 @@ if __name__ == '__main__':
             # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
             sens = SensorTemperature(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
                                        measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+        elif sensor['measure'] == 'humidity':
+            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+            sens = SensorHumidity(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
+                                     measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+        elif sensor['measure'] == 'motion':
+            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+            sens = SensorMotion(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
+                                     measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+        else:
+            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+            sens = SensorParticulate(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
+                                     measure=sensor['measure'], measure_unit=sensor['measure_unit'])
 
-            sens.start()
-            temp_sens.append(sens)
+        raspberry.add_and_start_sensor(sens, sensor["measure"])
 
     # DEVICE CONNECTOR INFO
 
@@ -211,7 +261,7 @@ if __name__ == '__main__':
         }
     }
 
-    cherrypy.tree.mount(ServicesComponent(), '/Data', conf)
+    cherrypy.tree.mount(raspberry, '/Data', conf)
     cherrypy.config.update({'server.socket_port': port})
     cherrypy.config.update(conf)
 
@@ -232,7 +282,6 @@ if __name__ == '__main__':
 
     # quando faremo la comunicazione dall'app con Andre, spostare questa parte (in cui si monta il tree di cherrypy...)
     # prima del while True sopra
-
 
 
     cherrypy.engine.block()

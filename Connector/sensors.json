@@ -20,7 +20,14 @@
             "building_id": "0",
             "room_id": "Bathroom",
             "measure": "motion",
-            "measure_unit": "bo"
+            "measure_unit": "people"
+        },
+        {
+            "sensor_id": "04",
+            "building_id": "0",
+            "room_id": "Bathroom",
+            "measure": "particulate",
+            "measure_unit": "ppm"
         }
 
     ]
