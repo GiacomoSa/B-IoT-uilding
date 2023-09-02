@@ -1,6 +1,6 @@
 [
     {
-        "building_id": "building0",
+        "building_id": "0",
         "building_type": "house",
         "rooms": [
             "Bathroom",
@@ -8,10 +8,13 @@
             "Bathroom2",
             "Kitchen",
             "LivingRoom"
-        ]
+        ],
+        "API_keys": {
+            "Bathroom":  "FCHRZ9HQ2QM3ON3M"
+            }
     },
     {
-        "building_id": "building3",
+        "building_id": "3",
         "building_type": "Museum",
         "rooms": [
             "A0",
@@ -21,7 +24,8 @@
             "B1",
             "Entrance",
             "Emergency Exit"
-        ]
+        ],
+        "API_keys": {}
     }
 ]
 

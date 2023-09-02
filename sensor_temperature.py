@@ -19,7 +19,7 @@ class Sensor():
             self.roomID=f"Room_{roomID}"
             self.sensorID=f"Sensor_{str(sensorID)}"
 
-            self.topic='/'.join([self.baseTopic, self.buildingID,self.roomID, self.measure, self.sensorID])
+            self.topic='/'.join([self.baseTopic, self.buildingID,self.roomID, self.measure])
             self.client=MyMQTT(self.sensorID,self.broker,self.port,None)
             self.__message={
                 'buildingID':self.buildingID,
@@ -29,7 +29,7 @@ class Sensor():
                     [
                         {
                             'n': self.measure,
-                            'value':'',
+                            'value':0.0,
                             'unit': self.measure_unit,
                             'timestamp':''
                         },
@@ -37,6 +37,7 @@ class Sensor():
                 }
 
         def getValue(self):
+
 
             measure = self.measure
             temp = pd.read_csv(f"{measure}.csv")
@@ -62,7 +63,7 @@ class Sensor():
 
         def sendData(self):
             message=self.__message
-            message['e'][0]['value']= self.getValue()
+            message['e'][0]['value'] = random.randint(20, 30) #self.getValue()
             message['e'][0]['timestamp']=str(time.time())
             self.client.myPublish(self.topic,json.dumps(message))
             print("Published!\n" + json.dumps(message) + "\n")

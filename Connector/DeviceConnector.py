@@ -172,6 +172,7 @@ if __name__ == '__main__':
     raspberry = DeviceConnector()
     RC_name = "B(IoT)uilding"
     raspberry.request_RC(RC_name=RC_name)
+    raspberry.registration()
     #Fa partire lo start di tutti i sensori
     #Il device connector deve far fare il .publish
     #Prima fase di requestRC. poi una fase di registration, ogni tot second fa partire il .publish dei sensori
@@ -219,12 +220,11 @@ if __name__ == '__main__':
     start_send = time.time()
     start_reg = time.time()
     while True:
-        #if time.time() - start_send > 1:
-        #    pass
-            #for sensor in temp_sens:
-            #    sensor.sendData() #Publish
-            #    start_send = time.time()
-        if time.time() - start_reg > 1:
+        if time.time() - start_send > 5:
+            for sensor in temp_sens:
+                sensor.sendData() #Publish
+                start_send = time.time()
+        if time.time() - start_reg > 300:
             #Prima della registration il file coi sensor del database va svuotato
             raspberry.registration()
             start_reg = time.time()
