@@ -68,6 +68,7 @@ class Sensor():
             self.client.myPublish(self.topic,json.dumps(message))
             print("Published!\n" + json.dumps(message) + "\n")
             print(f"Topic={self.topic}")
+            print("--------------------------")
 
         def start (self):
             self.client.start()

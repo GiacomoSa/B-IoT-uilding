@@ -20,7 +20,7 @@ class Sensor():
             self.roomID = f"Room_{roomID}"
             self.sensorID = f"Sensor_{str(sensorID)}"
 
-            self.topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.measure, self.sensorID])
+            self.topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.measure])
             self.client = MyMQTT(self.sensorID, self.broker, self.port, None)
             self.__message = {
                 'buildingID': self.buildingID,
@@ -50,6 +50,7 @@ class Sensor():
             self.client.myPublish(self.topic,json.dumps(message))
             print("Published!\n" + json.dumps(message) + "\n")
             print(f"Topic={self.topic}")
+            print("--------------------------")
 
         def start (self):
             self.client.start()

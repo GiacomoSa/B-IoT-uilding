@@ -1,16 +1,16 @@
 [
     {
-        "building_id": "0",
+        "building_id": "1",
         "building_type": "house",
         "rooms": [
-            "Bathroom",
+            "Bathroom1",
             "Bedroom1",
             "Bathroom2",
             "Kitchen",
             "LivingRoom"
         ],
         "API_keys": {
-            "Bathroom":  "FCHRZ9HQ2QM3ON3M"
+            "Bathroom1":  "FCHRZ9HQ2QM3ON3M"
             }
     },
     {

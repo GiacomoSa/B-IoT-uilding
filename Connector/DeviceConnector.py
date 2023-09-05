@@ -123,6 +123,7 @@ class DeviceConnector: # mounted on /Data
         all_sensors = self.temp_sens + self.hum_sens + self.part_sens + self.motion_sens
         for s in all_sensors:
             s.sendData()
+            time.sleep(5)
 
     def stopSensors(self):
         all_sensors = self.temp_sens + self.hum_sens + self.part_sens + self.motion_sens
@@ -297,7 +298,7 @@ if __name__ == '__main__':
     start_send = time.time()
     start_reg = time.time()
     while True:
-        if time.time() - start_send > 5:
+        if time.time() - start_send > 30:
             raspberry.sendData()
             start_send = time.time()
         if time.time() - start_reg > 300:

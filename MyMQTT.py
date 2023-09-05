@@ -13,7 +13,7 @@ class MyMQTT:
 		self._isSubscriber = False
 
 		# create an instance of paho.mqtt.client
-		self._paho_mqtt = PahoMQTT.Client(clientID, False) 
+		self._paho_mqtt = PahoMQTT.Client(clientID, clean_session=True)
 
 		# register the callback
 		self._paho_mqtt.on_connect = self.myOnConnect
@@ -49,7 +49,7 @@ class MyMQTT:
 
 	def start(self):
 		#manage connection to broker
-		self._paho_mqtt.connect(self.broker , self.port)
+		self._paho_mqtt.connect(self.broker, self.port)
 		self._paho_mqtt.loop_start()
 
 	def stop (self):
@@ -59,6 +59,3 @@ class MyMQTT:
 
 		self._paho_mqtt.loop_stop()
 		self._paho_mqtt.disconnect()
-
-
-
