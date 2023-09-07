@@ -255,8 +255,10 @@ class CatalogUSER: # mounted on '/Users'
         """
         if str(uri)[2:-3] == "building":
 
-            username = params["username"]
-            building = params["building_id"]
+            updating_values = json.loads(cherrypy.request.body.read())
+
+            username = updating_values["username"]
+            building = updating_values["building_id"]
 
             self.addBuildingToUser(username, building)
 
