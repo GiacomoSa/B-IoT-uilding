@@ -14,7 +14,48 @@
         }
     },
     {
+        "building_id": "2",
+        "building_type": "Museum",
+        "rooms": [
+            "A0",
+            "A1",
+            "A2",
+            "B0",
+            "B1",
+            "Entrance",
+            "Emergency Exit"
+        ],
+        "API_keys": "NONO"
+    },
+    {
         "building_id": "3",
+        "building_type": "Museum",
+        "rooms": [
+            "A0",
+            "A1",
+            "A2",
+            "B0",
+            "B1",
+            "Entrance",
+            "Emergency Exit"
+        ],
+        "API_keys": "NONO"
+    },
+    {
+        "building_id": "4",
+        "building_type": "Museum",
+        "rooms": [
+            "A0",
+            "A1",
+            "A2",
+            "B0",
+            "B1",
+            "Entrance",
+            "Emergency Exit"
+        ],
+        "API_keys": "NONO"
+    },{
+        "building_id": "5",
         "building_type": "Museum",
         "rooms": [
             "A0",
