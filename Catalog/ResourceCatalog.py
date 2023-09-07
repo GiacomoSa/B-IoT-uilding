@@ -235,11 +235,7 @@ class CatalogUSER: # mounted on '/Users'
 
     def DELETE(self, *uri, **params):
 
-        try:
-            id = params["id"]
 
-        except:
-            raise cherrypy.HTTPError(400, 'Bad request')
 
         if str(uri)[2:-3] == "building":
 
@@ -250,6 +246,13 @@ class CatalogUSER: # mounted on '/Users'
 
 
         else:
+
+            try:
+                id = params["id"]
+
+            except:
+                raise cherrypy.HTTPError(400, 'Bad request')
+
             found = False
             for idx, user in enumerate(self.users):
                 if user["user_id"] == id:
