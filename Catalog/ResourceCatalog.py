@@ -157,6 +157,15 @@ class CatalogUSER: # mounted on '/Users'
         with open(self.userdb_file, "w") as file:
             json.dump(self.users, file, indent=4)
 
+    def deleteBuildingFromUser(self, username, building):
+        for user in self.users:
+            if username == user["username"]:
+                user["buildings"].remove(building)
+                break
+        with open(self.userdb_file, "w") as file:
+            json.dump(self.users, file, indent=4)
+
+
     exposed = True
 
     def GET(self, *uri, **params):
@@ -232,14 +241,23 @@ class CatalogUSER: # mounted on '/Users'
         except:
             raise cherrypy.HTTPError(400, 'Bad request')
 
-        found = False
-        for idx, user in enumerate(self.users):
-            if user["user_id"] == id:
-                self.deleteUser(idx)
-                break
+        if str(uri)[2:-3] == "building":
 
-        if not found:
-            raise cherrypy.HTTPError(400, f'Bad request - User {id} not found')
+            username = params["username"]
+            building = params["building_id"]
+
+            self.deleteBuildingFromUser(username, building)
+
+
+        else:
+            found = False
+            for idx, user in enumerate(self.users):
+                if user["user_id"] == id:
+                    self.deleteUser(idx)
+                    break
+
+            if not found:
+                raise cherrypy.HTTPError(400, f'Bad request - User {id} not found')
 
 
 class CatalogDEVICE: # mounted on '/devices'
