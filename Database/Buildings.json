@@ -10,8 +10,8 @@
             "LivingRoom"
         ],
         "API_keys": {
-            "Bathroom1":  "FCHRZ9HQ2QM3ON3M"
-            }
+            "Bathroom1": "FCHRZ9HQ2QM3ON3M"
+        }
     },
     {
         "building_id": "3",
@@ -28,6 +28,3 @@
         "API_keys": {}
     }
 ]
-
-
-

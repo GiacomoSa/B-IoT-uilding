@@ -78,7 +78,7 @@ class CatalogBUILDING:  # mounted on '/building'
         add a new building
         """
         new_building = json.loads(cherrypy.request.body.read())
-        building_id = random.randint(10, 30000)
+        building_id = str(int(self.buildings[-1]["building_id"]) + 1)
         new_building["building_id"] = building_id
 
         self.insertBuilding(new_building)

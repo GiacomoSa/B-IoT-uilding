@@ -3,7 +3,8 @@ import json
 
 if __name__ == "__main__":
 
-    url = "http://127.0.0.1:9094/Data/sensor?building_id=0&room_id=Kitchen"
+    url = "http://127.0.0.1:9095/building"
+    payload = json.dumps({"prova": "you"})
 
-    r = requests.get(url)
+    r = requests.post(url, payload)
     print(r.text)
