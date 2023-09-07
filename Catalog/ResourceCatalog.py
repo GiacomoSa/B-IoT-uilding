@@ -12,6 +12,8 @@ CatalogManager.py --> Catalog.py
 """
 
 import json
+import random
+
 import cherrypy
 # from Catalog import *
 import copy
@@ -75,13 +77,13 @@ class CatalogBUILDING:  # mounted on '/building'
         """
         add a new building
         """
-        command = str(uri)[2:-3]
+        new_building = json.loads(cherrypy.request.body.read())
+        building_id = random.randint(10, 30000)
+        new_building["building_id"] = building_id
 
-        if command == "building":
-            new_building = json.loads(cherrypy.request.body.read())
-            self.insertBuilding(new_building)
+        self.insertBuilding(new_building)
 
-        return  # ???
+        return  "Building addedd succesfully"
 
     def PUT(self, *uri, **params):
 
