@@ -46,31 +46,62 @@ class CatalogBUILDING:  # mounted on '/building'
         with open(self.buildingdb_file, "w") as file:
             json.dump(self.buildings, file, indent=4)
 
+    def remainingBuildings(self, username):
+        with open("../Database/Users.json", "r") as f:
+            user_list = json.load(f)
+
+        for user in user_list:
+            if user["username"] == username:
+                buildings_list = user["buildings"]
+                break
+
+        remaining_buildings = [b["building_id"] for b in self.buildings]
+
+        el_to_delete = []
+        for bb in remaining_buildings:
+            for bbb in buildings_list:
+                if bb == bbb:
+                    el_to_delete.append(bb)
+
+        l = copy.copy(len(el_to_delete))
+        for i in range(l):
+            remaining_buildings.remove(el_to_delete[i])
+
+        return el_to_delete
+
+
     exposed = True
 
     def GET(self, *uri, **params):
 
         command = str(uri)[2:-3]
 
-        try:
-            id = params["id"]
-
-        except:
-            raise cherrypy.HTTPError(400, 'Bad request')
-
-        if id == "all":
-            # ritorniamo tutti
-            return json.dumps(self.buildings)
+        if command == "remainingBuildings":
+            username = params["username"]
+            rem_buildings = self.remainingBuildings(username)
+            return json.dumps(rem_buildings)
 
         else:
-            found = False
-            for b in self.buildings:
-                if b["building_id"] == id:
-                    found = True
-                    return json.dumps(b)
 
-            if not found:
-                raise cherrypy.HTTPError(400, f'Bad request - Building {id} not found')
+            try:
+                id = params["id"]
+
+            except:
+                raise cherrypy.HTTPError(400, 'Bad request')
+
+            if id == "all":
+                # ritorniamo tutti
+                return json.dumps(self.buildings)
+
+            else:
+                found = False
+                for b in self.buildings:
+                    if b["building_id"] == id:
+                        found = True
+                        return json.dumps(b)
+
+                if not found:
+                    raise cherrypy.HTTPError(400, f'Bad request - Building {id} not found')
 
     def POST(self, *uri, **params):
 
@@ -215,6 +246,8 @@ class CatalogUSER: # mounted on '/Users'
         """
         modify a building info
         """
+
+
 
         try:
             id = params["id"]
