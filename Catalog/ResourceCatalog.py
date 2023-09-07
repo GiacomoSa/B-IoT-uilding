@@ -67,7 +67,7 @@ class CatalogBUILDING:  # mounted on '/building'
         for i in range(l):
             remaining_buildings.remove(el_to_delete[i])
 
-        return el_to_delete
+        return remaining_buildings
 
 
     exposed = True
@@ -77,6 +77,7 @@ class CatalogBUILDING:  # mounted on '/building'
         command = str(uri)[2:-3]
 
         if command == "remainingBuildings":
+
             username = params["username"]
             rem_buildings = self.remainingBuildings(username)
             return json.dumps(rem_buildings)
@@ -124,24 +125,23 @@ class CatalogBUILDING:  # mounted on '/building'
 
         command = str(uri)[2:-3]
 
-        if command == "building":
 
-            try:
-                id = params["id"]
-            except:
-                raise cherrypy.HTTPError(400, 'Bad request')
+        try:
+            id = params["id"]
+        except:
+            raise cherrypy.HTTPError(400, 'Bad request')
 
-            found = False
-            for idx, building in enumerate(self.buildings):
-                if building['building_id'] == id:
-                    found = True
+        found = False
+        for idx, building in enumerate(self.buildings):
+            if building['building_id'] == id:
+                found = True
 
-                    updated_building = json.loads(cherrypy.request.body.read())
-                    self.updateBuilding(updated_building, idx)
-                    break
+                updated_building = json.loads(cherrypy.request.body.read())
+                self.updateBuilding(updated_building, idx)
+                break
 
-            if not found:
-                raise cherrypy.HTTPError(400, f'Bad request - Building {id} not found')
+        if not found:
+            raise cherrypy.HTTPError(400, f'Bad request - Building {id} not found')
 
     def DELETE(self, *uri, **params):
 
@@ -196,6 +196,13 @@ class CatalogUSER: # mounted on '/Users'
         with open(self.userdb_file, "w") as file:
             json.dump(self.users, file, indent=4)
 
+    def addBuildingToUser(self, username, building):
+        for user in self.users:
+            if username == user["username"]:
+                user["buildings"].append(building)
+                break
+        with open(self.userdb_file, "w") as file:
+            json.dump(self.users, file, indent=4)
 
     exposed = True
 
@@ -246,29 +253,32 @@ class CatalogUSER: # mounted on '/Users'
         """
         modify a building info
         """
+        if str(uri)[2:-3] == "building":
 
+            username = params["username"]
+            building = params["building_id"]
 
+            self.addBuildingToUser(username, building)
 
-        try:
-            id = params["id"]
-        except:
-            raise cherrypy.HTTPError(400, 'Bad request')
+        else:
+            try:
+                id = params["id"]
+            except:
+                raise cherrypy.HTTPError(400, 'Bad request')
 
-        found = False
-        for idx, user in enumerate(self.users):
-            if user['user_id'] == id:
-                found = True
+            found = False
+            for idx, user in enumerate(self.users):
+                if user['user_id'] == id:
+                    found = True
 
-                updated_user = json.loads(cherrypy.request.body.read())
-                self.updateUser(updated_user, idx)
-                break
+                    updated_user = json.loads(cherrypy.request.body.read())
+                    self.updateUser(updated_user, idx)
+                    break
 
-        if not found:
-            raise cherrypy.HTTPError(400, f'Bad request - User {id} not found')
+            if not found:
+                raise cherrypy.HTTPError(400, f'Bad request - User {id} not found')
 
     def DELETE(self, *uri, **params):
-
-
 
         if str(uri)[2:-3] == "building":
 
