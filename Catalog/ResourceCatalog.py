@@ -502,7 +502,8 @@ class CatalogSENSOR: # mounted on '/sensors'
 
         new_id = str(int(tutti_sensori[-1]["sensor_id"]) + 1)
 
-        measure_units = json.load(open("measure_units.json"))
+        path = os.path.dirname(__file__)
+        measure_units = json.load(open(os.path.join(path,"measure_units.json")))
 
         json_obj = {
             "sensor_id": new_id,

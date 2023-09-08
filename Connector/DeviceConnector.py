@@ -244,7 +244,7 @@ class DeviceConnector: # mounted on /Data
             sensors_list = json.load(f)
 
         sensors_list.append(data)
-        
+
         with open(self.sensors_file, 'w') as f:
             json.dump(sensors_list, f)
 
