@@ -525,13 +525,17 @@ class CatalogSENSOR: # mounted on '/sensors'
         host = r_config["resource_host"]
         port = int(r_config["resource_port"])
         catalog_name = r_config["catalog_name"]
-        url = f"{host}:{port}/id={catalog_name}"
+        url = f"{host}:{port}/resource?id=all"
         r = requests.get(url)
 
-        connector_info = r.json()
+        all_resources = json.loads(r.text)
+        for resource in all_resources:
+            if resource["catalog_id"] == catalog_name:
+                connector_info = copy.deepcopy(resource)
+                break
         connector_host = connector_info["host"]
         connector_port = connector_info["port"]
-        url2 = f"{connector_host}:{connector_port}/Data"
+        url2 = f"{connector_host}:{connector_port}/Data?catalog_id={catalog_name}"
 
         r = requests.post(url=url2, data=json.dumps(json_obj))
 
