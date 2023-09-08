@@ -1,0 +1,6 @@
+{
+    "temperature": "C",
+    "humidity": "%",
+    "particulate": "ppm",
+    "motion": "people"
+}
