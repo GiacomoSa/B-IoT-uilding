@@ -155,73 +155,83 @@ class DeviceConnector: # mounted on /Data
 
             message = []
 
+            '''
             data = {
                 "building_id": building_id,
                 "room_id": room_id,
                 "measure": "",
                 "measure_unit": "",
                 "value": -1.0
-            }
+            }'''
 
             # vedere con Andre se str o numero
             found = False
             for s in self.temp_sens:
                 if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
-                    data["value"] = s.getValue()
-                    data["measure_unit"] = s.measure_unit
-                    data["measure"] = s.measure
+
+                    data = f"{s.measure}: {s.getValue()} {s.measure_unit}"
+                    #data["value"] = s.getValue()
+                    #data["measure_unit"] = s.measure_unit
+                    #data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
                     found = True
                     break
             if not found:
-                data["measure"] = "temperature"
-                data["measure_unit"] = "C"
-                data["value"] = -1
+                data = f"temperature: null"
+                # data["measure"] = "temperature"
+                # data["measure_unit"] = "C"
+                # data["value"] = -1
                 message.append(copy.deepcopy(data))
 
             found = False
             for s in self.hum_sens:
                 if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
-                    data["value"] = s.getValue()
-                    data["measure_unit"] = s.measure_unit
-                    data["measure"] = s.measure
+                    data = f"{s.measure}: {s.getValue()} {s.measure_unit}"
+                    #data["value"] = s.getValue()
+                    #data["measure_unit"] = s.measure_unit
+                    #data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
                     found = True
                     break
             if not found:
-                data["measure"] = "humidity"
-                data["measure_unit"] = "%"
-                data["value"] = -1
+                data = f"humidity: null"
+                #data["measure"] = "humidity"
+                #data["measure_unit"] = "%"
+                #data["value"] = -1
                 message.append(copy.deepcopy(data))
 
             found = False
             for s in self.motion_sens:
                 if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
-                    data["value"] = s.getValue()
-                    data["measure_unit"] = s.measure_unit
-                    data["measure"] = s.measure
+                    data = f"{s.measure}: {s.getValue()} {s.measure_unit}"
+                    #data["value"] = s.getValue()
+                    #data["measure_unit"] = s.measure_unit
+                    #data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
                     found = True
                     break
             if not found:
-                data["measure"] = "motion"
-                data["measure_unit"] = "people"
-                data["value"] = -1
+                data = f"motion: null"
+                #data["measure"] = "motion"
+                #data["measure_unit"] = "people"
+                #data["value"] = -1
                 message.append(copy.deepcopy(data))
 
             found = False
             for s in self.part_sens:
                 if s.buildingID == f"Building_{building_id}" and s.roomID == f"Room_{room_id}":
-                    data["value"] = s.getValue()
-                    data["measure_unit"] = s.measure_unit
-                    data["measure"] = s.measure
+                    data = f"{s.measure}: {s.getValue()} {s.measure_unit}"
+                    #data["value"] = s.getValue()
+                    #data["measure_unit"] = s.measure_unit
+                    #data["measure"] = s.measure
                     message.append(copy.deepcopy(data))
                     found = True
                     break
             if not found:
-                data["measure"] = "particulate"
-                data["measure_unit"] = "ppm"
-                data["value"] = -1
+                data = f"particulate: null"
+                #data["measure"] = "particulate"
+                #data["measure_unit"] = "ppm"
+                #data["value"] = -1
                 message.append(copy.deepcopy(data))
 
             return json.dumps(message)
