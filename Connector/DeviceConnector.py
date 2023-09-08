@@ -248,7 +248,7 @@ class DeviceConnector: # mounted on /Data
         with open(self.sensors_file, 'w') as f:
             json.dump(sensors_list, f)
 
-        pass
+        return
 
     def PUT(self, *uri, **params):  # per modificare un sensore già associato al dev connector?
         pass
