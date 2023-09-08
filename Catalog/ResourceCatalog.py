@@ -165,7 +165,7 @@ class CatalogBUILDING:  # mounted on '/building'
                 raise cherrypy.HTTPError(400, f'Bad request - Building {id} not found')
 
 
-class CatalogUSER: # mounted on '/Users'
+class CatalogUSER: # mounted on '/user'
 
     def __init__(self, userdb_file):
         self.userdb_file = userdb_file
@@ -293,14 +293,14 @@ class CatalogUSER: # mounted on '/Users'
         else:
 
             try:
-                id = params["id"]
+                id = params["username"]
 
             except:
                 raise cherrypy.HTTPError(400, 'Bad request')
 
             found = False
             for idx, user in enumerate(self.users):
-                if user["user_id"] == id:
+                if user["username"] == id:
                     self.deleteUser(idx)
                     break
 

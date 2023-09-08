@@ -9,9 +9,27 @@
         ]
     },
     {
-        "username": "Luca",
+        "username": "Ale",
         "email" : "luca@dema.pempem",
-        "pw": "Dema",
+        "pw": "Clemens",
+        "buildings": []
+    },
+    {
+        "username": "Jack",
+        "email" : "luca@dema.pempem",
+        "pw": "Bonaventura",
+        "buildings": []
+    },
+    {
+        "username": "Matteo",
+        "email" : "luca@dema.pempem",
+        "pw": "Sassi",
+        "buildings": []
+    },
+    {
+        "username": "Giuseppe",
+        "email" : "luca@dema.pempem",
+        "pw": "Pinerolo",
         "buildings": []
     }
 ]
