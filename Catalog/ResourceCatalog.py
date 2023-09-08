@@ -412,7 +412,7 @@ class CatalogSENSOR: # mounted on '/sensors'
     def __init__(self, sensordb_file):
         self.sensordb_file = sensordb_file
         with open(sensordb_file, 'r') as file:
-            self.sensors = json.load(file)
+            self.sensors:list = json.load(file)
 
     # ----- SENSOR -----
     def insertSensor(self, sensor_json):
@@ -445,15 +445,20 @@ class CatalogSENSOR: # mounted on '/sensors'
 
             building_id = params["building_id"]
             room_id = params["room_id"]
+            catalog_id = params["catalog_id"]
 
             default_measures = ["temperature", "humidity", "motion", "particulate"]
 
-            for sensor in self.sensors:
+            for s in self.sensors:
+                if s["catalog_id"] == catalog_id:
+                    tutti_sensori = copy.deepcopy(s["sensors"])
+
+            for sensor in tutti_sensori:
                 if sensor["building_id"] == building_id and sensor["room_id"] == room_id:
                     default_measures.remove(sensor["measure"])
 
             if len(default_measures) == 0:
-                return "No available sensors to add"
+                raise cherrypy.HTTPError(400, "Bad request")
             else:
                 return json.dumps(default_measures)
 
