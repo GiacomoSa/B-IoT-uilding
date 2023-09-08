@@ -293,7 +293,7 @@ class CatalogUSER: # mounted on '/user'
         else:
 
             try:
-                id = params["username"]
+                id = params["id"]
 
             except:
                 raise cherrypy.HTTPError(400, 'Bad request')
