@@ -487,18 +487,51 @@ class CatalogSENSOR: # mounted on '/sensors'
     def POST(self, *uri, **params):
 
         """
-        add a new user
+        add a new sensor
         """
 
         new_sensor = json.loads(cherrypy.request.body.read())
-        new_sensor_id = new_sensor["sensor_id"]
-        for sensor in self.sensors:
-            found = False
-            if new_sensor_id == sensor["sensor_id"]:
-                found = True
-                break
-            if not found:
-                self.insertSensor(new_sensor)
+        measure = new_sensor["sensor_measure"]
+        building_id = new_sensor["building_id"]
+        room_id = new_sensor["room_id"]
+        catalog_id = new_sensor["catalog_id"]
+
+        for s in self.sensors:
+            if s["catalog_id"] == catalog_id:
+                tutti_sensori = s["sensors"]
+
+        new_id = str(int(tutti_sensori[-1]["sensor_id"]) + 1)
+
+        measure_units = json.load(open("measure_units.json"))
+
+        json_obj = {
+            "sensor_id": new_id,
+            "building_id": building_id,
+            "room_id": room_id,
+            "measure": measure,
+            "measure_unit": measure_units[measure]
+        }
+
+        # add to database
+
+        tutti_sensori.append(json_obj)
+
+        # add to local catalog
+        with open('resource_catalog_info.json', 'r') as f:
+            r_config = json.load(f)
+        host = r_config["resource_host"]
+        port = int(r_config["resource_port"])
+        catalog_name = r_config["catalog_name"]
+        url = f"{host}:{port}/id={catalog_name}"
+        r = requests.get(url)
+
+        connector_info = r.json()
+        connector_host = connector_info["host"]
+        connector_port = connector_info["port"]
+        url2 = f"{connector_host}:{connector_port}/Data"
+
+        r = requests.post(url=url2, data=json.dumps(json_obj))
+
 
         return  # ???
 

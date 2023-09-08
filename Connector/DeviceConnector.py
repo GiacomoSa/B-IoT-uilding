@@ -238,6 +238,16 @@ class DeviceConnector: # mounted on /Data
         pass
 
     def POST(self, *uri, **params):  # per aggiungere sensori al device connector?
+
+        data = json.loads(cherrypy.request.body.read())
+        with open(self.sensors_file, 'r') as f:
+            sensors_list = json.load(f)
+
+        sensors_list.append(data)
+        
+        with open(self.sensors_file, 'w') as f:
+            json.dump(sensors_list, f)
+
         pass
 
     def PUT(self, *uri, **params):  # per modificare un sensore già associato al dev connector?
