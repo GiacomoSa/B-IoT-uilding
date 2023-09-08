@@ -441,25 +441,43 @@ class CatalogSENSOR: # mounted on '/sensors'
 
         command = str(uri)[2:-3]
 
-        try:
-            id = params["id"]
+        if command == "missing":
 
-        except:
-            raise cherrypy.HTTPError(400, 'Bad request')
+            building_id = params["building_id"]
+            room_id = params["room_id"]
 
-        if id == "all":
-            # ritorniamo tutti
-            return json.dumps(self.sensors)
+            default_measures = ["temperature", "humidity", "motion", "particulate"]
+
+            for sensor in self.sensors:
+                if sensor["building_id"] == building_id and sensor["room_id"] == room_id:
+                    default_measures.remove(sensor["measure"])
+
+            if len(default_measures) == 0:
+                return "No available sensors to add"
+            else:
+                return json.dumps(default_measures)
 
         else:
-            found = False
-            for b in self.sensors:
-                if b["user_id"] == id:
-                    found = True
-                    return json.dumps(b)
 
-            if not found:
-                raise cherrypy.HTTPError(400, f'Bad request - Sensor {id} not found')
+            try:
+                id = params["id"]
+
+            except:
+                raise cherrypy.HTTPError(400, 'Bad request')
+
+            if id == "all":
+                # ritorniamo tutti
+                return json.dumps(self.sensors)
+
+            else:
+                found = False
+                for b in self.sensors:
+                    if b["user_id"] == id:
+                        found = True
+                        return json.dumps(b)
+
+                if not found:
+                    raise cherrypy.HTTPError(400, f'Bad request - Sensor {id} not found')
 
     def POST(self, *uri, **params):
 

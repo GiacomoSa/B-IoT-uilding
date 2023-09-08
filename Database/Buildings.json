@@ -1,7 +1,7 @@
 [
     {
         "building_id": "1",
-        "building_type": "house",
+        "building_name": "My House",
         "rooms": [
             "Bathroom1",
             "Bedroom1",
@@ -15,7 +15,7 @@
     },
     {
         "building_id": "2",
-        "building_type": "Museum",
+        "building_name": "Museum",
         "rooms": [
             "A0",
             "A1",
@@ -29,40 +29,36 @@
     },
     {
         "building_id": "3",
-        "building_type": "Museum",
+        "building_name": "Sea House",
         "rooms": [
-            "A0",
-            "A1",
-            "A2",
-            "B0",
-            "B1",
-            "Entrance",
-            "Emergency Exit"
+            "Terrace",
+            "Bedroom1",
+            "Kitchen",
+            "Bedroom2",
+            "Bathroom"
         ],
         "API_keys": "NONO"
     },
     {
         "building_id": "4",
-        "building_type": "Museum",
+        "building_type": "Baita",
         "rooms": [
-            "A0",
-            "A1",
-            "A2",
-            "B0",
-            "B1",
-            "Entrance",
-            "Emergency Exit"
+            "Bathroom",
+            "Ski closet",
+            "Bedroom1",
+            "Bedroom2",
+            "Bedroom3"
         ],
         "API_keys": "NONO"
     },{
         "building_id": "5",
-        "building_type": "Museum",
+        "building_type": "School",
         "rooms": [
-            "A0",
-            "A1",
-            "A2",
-            "B0",
-            "B1",
+            "Classroom A",
+            "Classroom B",
+            "Classroom C",
+            "Classroom D",
+            "Classroom E",
             "Entrance",
             "Emergency Exit"
         ],
