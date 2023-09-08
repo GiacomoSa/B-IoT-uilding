@@ -516,6 +516,8 @@ class CatalogSENSOR: # mounted on '/sensors'
         # add to database
 
         tutti_sensori.append(json_obj)
+        with open(self.sensordb_file, "w") as file:
+            json.dump(self.sensors, file, indent=4)
 
         # add to local catalog
         with open('resource_catalog_info.json', 'r') as f:
