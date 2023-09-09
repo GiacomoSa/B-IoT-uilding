@@ -82,6 +82,27 @@ class CatalogBUILDING:  # mounted on '/building'
             rem_buildings = self.remainingBuildings(username)
             return json.dumps(rem_buildings)
 
+        elif command == "ofUser": # w...../building/ofUser?username=userid
+
+            username = params["username"]
+
+            with open("../Database/Users.json") as f:
+                list_users = json.load(f)
+
+            for user in list_users:
+                if username == user["username"]:
+                    my_buildings = user["buildings"]
+                    break
+
+            building_names = []
+            for building_id in my_buildings:
+                for building in self.buildings:
+                    if building_id == building["building_id"]:   # ["Museo:1", "Casa:2", "Scuola:3"]
+                        name = building["building_name"]
+                        building_names.append(f"{name}:{building_id}")
+
+            return json.dumps(building_names)
+
         else:
 
             try:
