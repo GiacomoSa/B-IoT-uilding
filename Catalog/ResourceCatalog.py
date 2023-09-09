@@ -21,6 +21,7 @@ import os
 import requests
 import time
 
+
 # TODO l'id con cui aggiungiamo elementi in una POST lo generiamo noi??
 
 class CatalogBUILDING:  # mounted on '/building'
@@ -67,8 +68,13 @@ class CatalogBUILDING:  # mounted on '/building'
         for i in range(l):
             remaining_buildings.remove(el_to_delete[i])
 
-        return remaining_buildings
+        for idx, ele in enumerate(remaining_buildings):
+            for building in self.buildings:
+                if ele == building["building_id"]:
+                    name = building["building_name"]
+                    remaining_buildings[idx] = f"{name}:{ele}"
 
+        return remaining_buildings
 
     exposed = True
 
@@ -82,7 +88,7 @@ class CatalogBUILDING:  # mounted on '/building'
             rem_buildings = self.remainingBuildings(username)
             return json.dumps(rem_buildings)
 
-        elif command == "ofUser": # w...../building/ofUser?username=userid
+        elif command == "ofUser":  # w...../building/ofUser?username=userid
 
             username = params["username"]
 
@@ -97,7 +103,7 @@ class CatalogBUILDING:  # mounted on '/building'
             building_names = []
             for building_id in my_buildings:
                 for building in self.buildings:
-                    if building_id == building["building_id"]:   # ["Museo:1", "Casa:2", "Scuola:3"]
+                    if building_id == building["building_id"]:  # ["Museo:1", "Casa:2", "Scuola:3"]
                         name = building["building_name"]
                         building_names.append(f"{name}:{building_id}")
 
@@ -136,7 +142,7 @@ class CatalogBUILDING:  # mounted on '/building'
 
         self.insertBuilding(new_building)
 
-        return  "Building addedd succesfully"
+        return "Building addedd succesfully"
 
     def PUT(self, *uri, **params):
 
@@ -145,7 +151,6 @@ class CatalogBUILDING:  # mounted on '/building'
         """
 
         command = str(uri)[2:-3]
-
 
         try:
             id = params["id"]
@@ -186,7 +191,7 @@ class CatalogBUILDING:  # mounted on '/building'
                 raise cherrypy.HTTPError(400, f'Bad request - Building {id} not found')
 
 
-class CatalogUSER: # mounted on '/user'
+class CatalogUSER:  # mounted on '/user'
 
     def __init__(self, userdb_file):
         self.userdb_file = userdb_file
@@ -268,7 +273,6 @@ class CatalogUSER: # mounted on '/user'
         else:
             self.insertUser(new_user)
 
-
     def PUT(self, *uri, **params):
 
         """
@@ -329,7 +333,7 @@ class CatalogUSER: # mounted on '/user'
                 raise cherrypy.HTTPError(400, f'Bad request - User {id} not found')
 
 
-class CatalogDEVICE: # mounted on '/devices'
+class CatalogDEVICE:  # mounted on '/devices'
 
     def __init__(self, devicedb_file):
         self.devicedb_file = devicedb_file
@@ -428,12 +432,12 @@ class CatalogDEVICE: # mounted on '/devices'
             raise cherrypy.HTTPError(400, f'Bad request - Device {id} not found')
 
 
-class CatalogSENSOR: # mounted on '/sensors'
+class CatalogSENSOR:  # mounted on '/sensors'
 
     def __init__(self, sensordb_file):
         self.sensordb_file = sensordb_file
         with open(sensordb_file, 'r') as file:
-            self.sensors:list = json.load(file)
+            self.sensors: list = json.load(file)
 
     # ----- SENSOR -----
     def insertSensor(self, sensor_json):
@@ -524,7 +528,7 @@ class CatalogSENSOR: # mounted on '/sensors'
         new_id = str(int(tutti_sensori[-1]["sensor_id"]) + 1)
 
         path = os.path.dirname(__file__)
-        measure_units = json.load(open(os.path.join(path,"measure_units.json")))
+        measure_units = json.load(open(os.path.join(path, "measure_units.json")))
 
         json_obj = {
             "sensor_id": new_id,
@@ -559,7 +563,6 @@ class CatalogSENSOR: # mounted on '/sensors'
         url2 = f"{connector_host}:{connector_port}/Data?catalog_id={catalog_name}"
 
         r = requests.post(url=url2, data=json.dumps(json_obj))
-
 
         return  # ???
 
@@ -604,7 +607,7 @@ class CatalogSENSOR: # mounted on '/sensors'
             raise cherrypy.HTTPError(400, f'Bad request - Sensor {id} not found')
 
 
-class CatalogRESOURCES: # mounted on /resource
+class CatalogRESOURCES:  # mounted on /resource
 
     def __init__(self, resourcedb_file):
         self.resourcedb_file = resourcedb_file
@@ -703,7 +706,7 @@ class CatalogRESOURCES: # mounted on /resource
             raise cherrypy.HTTPError(400, f'Bad request - Resource {id} not found')
 
 
-class RegistrationManager: # mounted on /registration
+class RegistrationManager:  # mounted on /registration
 
     def __init__(self):
         self.sensors_db = "../Database/Sensors.json"
@@ -725,7 +728,7 @@ class RegistrationManager: # mounted on /registration
 
             found = False
 
-            for connector in connector_list: #questo connector è un dizionario con primo elemento l'id del catalog, secondo elemento lista di sensori
+            for connector in connector_list:  # questo connector è un dizionario con primo elemento l'id del catalog, secondo elemento lista di sensori
                 if RC_name == connector['catalog_id']:
                     sensors_list = connector['sensors']
                     found = True
