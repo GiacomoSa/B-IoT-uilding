@@ -51,9 +51,9 @@ class DeviceConnector: # mounted on /Data
         self.ServiceCatalog_host = config["service_host"]
         self.ServiceCatalog_port = config["service_port"]
         self.request_RC_command = config["RC_request"]
-        self.sensor_registration_command = config["DC_sensor_registration"]
-        self.device_registration_command = config["DC_device_registration"]
-        self.sensors_delete_command = config["delete_sensors"]
+        self.sensor_registration_command = ""
+        self.device_registration_command = ""
+        self.sensors_delete_command = ""
         self.RC_host = ""
         self.RC_port = ""
         self.RC_name = ""
@@ -84,9 +84,13 @@ class DeviceConnector: # mounted on /Data
         payload = {"RC_name": RC_name}
         r = requests.get(url=url, data=payload)
         RC_info = r.json()
+        commands = RC_info["commands"]
         self.RC_host = RC_info["host"]
         self.RC_port = RC_info["port"]
         self.RC_name = RC_info["catalog_name"]
+        self.sensor_registration_command = commands["DC_sensor_registration"]
+        self.device_registration_command = commands["DC_device_registration"]
+        self.sensors_delete_command = commands["delete_sensors"]
 
     def registration(self):  # devices and resources registration inside the RESOURCE CATALOG -> called in a loop
         # per ora mi vengono solo in mente sensori/attuatori che sono gestiti da un Device Connector

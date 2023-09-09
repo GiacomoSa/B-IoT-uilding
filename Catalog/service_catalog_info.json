@@ -2,8 +2,5 @@
   "service_host": "http://127.0.0.1",
   "service_port": "9096",
   "RC_registration": "RC/registration",
-  "RC_request": "RC/getRC",
-  "DC_sensor_registration": "registration/sensor",
-  "DC_device_registration": "registration/device",
-  "delete_sensors": "registration/allsensors"
+  "RC_request": "RC/getRC"
 }

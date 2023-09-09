@@ -21,6 +21,9 @@ import cherrypy
 
 
 # ------ HARDWARE ------
+# !!!!!!!!!!!!!!!!!!!!!!!!!!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!
+# FORSE VANNO TOLTE LE FUNZIONI CON LE INFO!!!
 
 class SensorsInfo: # mounted on /info/sensors
 
