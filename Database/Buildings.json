@@ -41,7 +41,7 @@
     },
     {
         "building_id": "4",
-        "building_type": "Baita",
+        "building_name": "Baita",
         "rooms": [
             "Bathroom",
             "Ski closet",
@@ -52,7 +52,7 @@
         "API_keys": "NONO"
     },{
         "building_id": "5",
-        "building_type": "School",
+        "building_name": "School",
         "rooms": [
             "Classroom A",
             "Classroom B",
