@@ -35,7 +35,7 @@ class ventilation_control():
         self.time_schedule['off'] = "17"
 
         self._isSubscriber = True
-        self.sub_topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.measure, self.subscribed_sensor])
+        self.sub_topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.measure])
         self.pub_topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.control_type])
 
         # create an instance of paho.mqtt.client
