@@ -1,5 +1,6 @@
 {
-    "temperature": "heating",
-    "particulate": "ventilation",
-    "motion": "lighting"
+    "heating": "temperature",
+    "ventilation": "particulate",
+    "lighting": "motion" ,
+    "people_level": "motion"
 }

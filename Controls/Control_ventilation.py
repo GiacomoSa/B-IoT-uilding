@@ -16,13 +16,14 @@ import datetime
 class ventilation_control():
     exposed = True
 
-    def __init__(self, controlID, baseTopic, buildingID, roomID, measure, broker, port, threshold):  # notifier,
+    def __init__(self, controlID, baseTopic, buildingID, roomID, control_type, broker, port, threshold):  # notifier,
         self.broker = broker
         self.port = port
 
         self.control_ID = controlID
-        self.measure = measure
-        self.control_type = self.get_controltype(self.measure)
+        self.control_type = control_type
+        self.measure = self.get_measure()
+
         self.buildingID = f"Building_{buildingID}"
         self.roomID = f"Room_{roomID}"
         self.baseTopic = baseTopic
@@ -43,9 +44,9 @@ class ventilation_control():
         self._paho_mqtt.on_connect = self.myOnConnect
         self._paho_mqtt.on_message = self.myOnMessageReceived
 
-    def get_controltype(self, measure):
+    def get_measure(self):
         control_types = json.load(open("controls.json"))
-        return control_types[f'{measure}']
+        return control_types[f'{self.control_type}']
 
     def time_control(self):
         actual_hour=int(datetime.datetime.now().strftime("%#H")) # '#' is used to remove the leading zero, it owrks only for windows, for unix use '-'
@@ -182,7 +183,7 @@ if __name__ == "__main__":
     controls = json.load(open("actuators.json"))
     vent_controls = []
     for control in controls:
-        if control['measure_to_check'] == "particulate":
+        if control['control_type'] == "ventilation":
             ventil_control = ventilation_control(
                 baseTopic=baseTopic,
                 broker=broker,
@@ -190,7 +191,7 @@ if __name__ == "__main__":
                 controlID=control['control_id'],
                 buildingID=control['building_id'],
                 roomID=control['room_id'],
-                measure=control['measure_to_check'],
+                control_type=control['control_type'],
                 threshold=30.0)
             vent_controls.append(ventil_control)
     for control in vent_controls:
