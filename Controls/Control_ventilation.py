@@ -16,7 +16,7 @@ import datetime
 class ventilation_control():
     exposed = True
 
-    def __init__(self, controlID, baseTopic, buildingID, roomID, sensorID, measure, broker, port, threshold):  # notifier,
+    def __init__(self, controlID, baseTopic, buildingID, roomID, measure, broker, port, threshold):  # notifier,
         self.broker = broker
         self.port = port
 
@@ -25,7 +25,6 @@ class ventilation_control():
         self.control_type = self.get_controltype(self.measure)
         self.buildingID = f"Building_{buildingID}"
         self.roomID = f"Room_{roomID}"
-        self.subscribed_sensor = f"Sensor_{str(sensorID)}"
         self.baseTopic = baseTopic
 
         self.threshold = threshold
@@ -142,8 +141,6 @@ class ventilation_control():
 
     def myOnMessageReceived(self, paho_mqtt, userdata, rcv_msg):
         # A new message is received
-        # TODO, controllo la temperatura che ricevo se rispetta threshold accendo altrimenti spengo
-        # TODO, fare double check se è già acceso
         payload = json.loads(rcv_msg.payload)
         measure_to_check = float(payload['e'][0]['value'])
         AIQ = self.AIQ(measure_to_check)
@@ -177,32 +174,31 @@ class ventilation_control():
         self._paho_mqtt.publish(topic, pub_msg, 2)
 
 if __name__ == "__main__":
-    conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
+    conf = json.load(open("../Connector/settings.json"))  # File contenente broker, porta e basetopic
     baseTopic = conf["baseTopic"]
     broker = conf["broker"]
     port = conf["port"]
 
     controls = json.load(open("actuators.json"))
-    heat_controls = []
+    vent_controls = []
     for control in controls:
         if control['measure_to_check'] == "particulate":
-            heating_control = ventilation_control(
+            ventil_control = ventilation_control(
                 baseTopic=baseTopic,
                 broker=broker,
                 port=port,
                 controlID=control['control_id'],
                 buildingID=control['building_id'],
                 roomID=control['room_id'],
-                sensorID=control['sensor_id'],
                 measure=control['measure_to_check'],
                 threshold=30.0)
-            heat_controls.append(heating_control)
-    for control in heat_controls:
+            vent_controls.append(ventil_control)
+    for control in vent_controls:
         control.stop()
         control.start()
     a = 0
     while (a < 30):
         a += 1
         time.sleep(5)
-    for control in heat_controls:
+    for control in vent_controls:
         control.stop()

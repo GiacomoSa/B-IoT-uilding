@@ -1,37 +1,26 @@
 [
     {
         "control_id": "01",
-        "building_id": "b1",
-        "room_id": "Bathroom",
-        "sensor_id": "01",
+        "building_id": "1",
+        "room_id": "Bathroom1",
         "measure_to_check": "temperature"
     },
     {
         "control_id": "02",
-        "building_id": "b1",
-        "room_id": "Bathroom",
-        "sensor_id": "02",
+        "building_id": "1",
+        "room_id": "Bathroom1",
         "measure_to_check": "humidity"
     },
     {
         "control_id": "03",
-        "building_id": "b1",
-        "room_id": "Bathroom",
-        "sensor_id": "03",
+        "building_id": "1",
+        "room_id": "Bathroom1",
         "measure_to_check": "motion"
     },
     {
         "control_id": "04",
-        "building_id": "b1",
-        "room_id": "Bathroom",
-        "sensor_id": "04",
-        "measure_to_check": "particulate"
-    },
-    {
-        "control_id": "05",
-        "building_id": "b1",
-        "room_id": "Bathroom",
-        "sensor_id": "03",
+        "building_id": "1",
+        "room_id": "Bathroom1",
         "measure_to_check": "particulate"
     }
 ]

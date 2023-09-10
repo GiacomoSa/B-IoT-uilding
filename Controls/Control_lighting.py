@@ -16,7 +16,7 @@ import datetime
 class lighting_control():
     exposed = True
 
-    def __init__(self, controlID, baseTopic, buildingID, roomID, sensorID, measure, broker, port, threshold): #notifier,
+    def __init__(self, controlID, baseTopic, buildingID, roomID, measure, broker, port, threshold): #notifier,
         self.broker = broker
         self.port = port
 
@@ -25,7 +25,6 @@ class lighting_control():
         self.control_type = self.get_controltype(self.measure)
         self.buildingID = f"Building_{buildingID}"
         self.roomID = f"Room_{roomID}"
-        self.subscribed_sensor = f"Sensor_{str(sensorID)}"
         self.baseTopic = baseTopic
 
         self.threshold = threshold
@@ -118,32 +117,31 @@ class lighting_control():
         self._paho_mqtt.disconnect()
 
 if __name__ == "__main__":
-    conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
+    conf = json.load(open("../Connector/settings.json"))  # File contenente broker, porta e basetopic
     baseTopic = conf["baseTopic"]
     broker = conf["broker"]
     port = conf["port"]
 
     controls = json.load(open("actuators.json"))
-    heat_controls = []
+    light_controls = []
     for control in controls:
         if control['measure_to_check'] == "motion":
-            heating_control = lighting_control(
+            lighti_control = lighting_control(
                 baseTopic=baseTopic,
                 broker=broker,
                 port=port,
                 controlID=control['control_id'],
                 buildingID=control['building_id'],
                 roomID=control['room_id'],
-                sensorID=control['sensor_id'],
                 measure=control['measure_to_check'],
                 threshold=30.0)
-            heat_controls.append(heating_control)
-    for control in heat_controls:
+            light_controls.append(lighti_control)
+    for control in light_controls:
         control.stop()
         control.start()
     a = 0
     while (a < 30):
         a += 1
         time.sleep(5)
-    for control in heat_controls:
+    for control in light_controls:
         control.stop()

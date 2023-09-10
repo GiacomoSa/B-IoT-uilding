@@ -16,7 +16,7 @@ import datetime as datetime
 class heating_control():
     exposed = True
 
-    def __init__(self, baseTopic, broker, port, controlID, buildingID, roomID, sensorID, measure, threshold): #notifier,
+    def __init__(self, baseTopic, broker, port, controlID, buildingID, roomID, measure, threshold): #notifier,
         self.broker = broker
         self.port = port
 
@@ -25,7 +25,6 @@ class heating_control():
         self.control_type = self.get_controltype(self.measure)
         self.buildingID = f"Building_{buildingID}"
         self.roomID = f"Room_{roomID}"
-        self.subscribed_sensor = f"Sensor_{str(sensorID)}"
         self.baseTopic = baseTopic
 
         self.threshold = threshold
@@ -117,7 +116,7 @@ class heating_control():
         self._paho_mqtt.disconnect()
 
 if __name__ == "__main__":
-    conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
+    conf = json.load(open("../Connector/settings.json"))  # File contenente broker, porta e basetopic
     baseTopic = conf["baseTopic"]
     broker = conf["broker"]
     port = conf["port"]
@@ -133,7 +132,6 @@ if __name__ == "__main__":
                                               controlID=control['control_id'],
                                               buildingID=control['building_id'],
                                               roomID=control['room_id'],
-                                              sensorID=control['sensor_id'],
                                               measure=control['measure_to_check'],
                                               threshold=30.0)
             heat_controls.append(heating_control)
