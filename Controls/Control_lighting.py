@@ -22,7 +22,7 @@ class lighting_control():
 
         self.control_ID = controlID
         self.control_type = control_type
-        self.measure = self.get_measure(self.control_type)
+        self.measure = self.get_measure()
         self.buildingID = f"Building_{buildingID}"
         self.roomID = f"Room_{roomID}"
         self.baseTopic = baseTopic
@@ -133,7 +133,7 @@ if __name__ == "__main__":
                 controlID=control['control_id'],
                 buildingID=control['building_id'],
                 roomID=control['room_id'],
-                control_type=control['control_typee'],
+                control_type=control['control_type'],
                 threshold=30.0)
             light_controls.append(lighti_control)
     for control in light_controls:

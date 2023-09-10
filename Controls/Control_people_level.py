@@ -66,11 +66,11 @@ class lighting_control():
         measure_to_check = float(payload['e'][0]['value'])
         if self.time_control():
             if measure_to_check >= self.threshold:
-                    pub_msg = f"Warning, {self.measure} above threashold!"
+                    pub_msg = f"Warning, People level above threashold!"
                     self.myPublish(self.pub_topic, pub_msg)
 
             else:
-                pub_msg = f"{self.measure} below threashold, everything fine"
+                pub_msg = f"People level below threashold, everything fine"
                 self.myPublish(self.pub_topic, pub_msg)
         else:
             pub_msg = f"{self.control_type} control cannot be used during this time period"
@@ -108,7 +108,7 @@ class lighting_control():
         self._paho_mqtt.disconnect()
 
 if __name__ == "__main__":
-    conf = json.load(open("Connector/settings.json"))  # File contenente broker, porta e basetopic
+    conf = json.load(open("../Connector/settings.json"))  # File contenente broker, porta e basetopic
     baseTopic = conf["baseTopic"]
     broker = conf["broker"]
     port = conf["port"]

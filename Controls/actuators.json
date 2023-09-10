@@ -9,18 +9,24 @@
         "control_id": "2",
         "building_id": "1",
         "room_id": "Bathroom1",
-        "control_type": "lighting"
+        "control_type": "ventilation"
     },
     {
         "control_id": "3",
         "building_id": "1",
         "room_id": "Bathroom1",
-        "control_type": "ventilation"
+        "control_type": "lighting"
     },
     {
         "control_id": "4",
         "building_id": "1",
         "room_id": "Bathroom1",
         "control_type": "people_level"
+    },
+    {
+        "control_id": "5",
+        "building_id": "1",
+        "room_id": "Kitchen",
+        "control_type": "ventilation"
     }
 ]
