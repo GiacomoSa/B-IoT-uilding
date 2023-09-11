@@ -53,7 +53,7 @@ class CatalogBUILDING:  # mounted on '/building'
 
         for user in user_list:
             if user["username"] == username:
-                buildings_list = user["buildings"]
+                buildings_list = user["owned_buildings"] + user["observed_buildings"]
                 break
 
         remaining_buildings = [b["building_id"] for b in self.buildings]
@@ -97,17 +97,31 @@ class CatalogBUILDING:  # mounted on '/building'
 
             for user in list_users:
                 if username == user["username"]:
-                    my_buildings = user["buildings"]
+                    my_buildings = user["owned_buildings"]
+                    obs_buildings = user["observed_buildings"]
                     break
 
-            building_names = []
+            owned_building_names = []
             for building_id in my_buildings:
                 for building in self.buildings:
                     if building_id == building["building_id"]:  # ["Museo:1", "Casa:2", "Scuola:3"]
                         name = building["building_name"]
-                        building_names.append(f"{name}:{building_id}")
+                        owned_building_names.append(f"{name}:{building_id}")
 
-            return json.dumps(building_names)
+            observed_building_names = []
+            for building_id in obs_buildings:
+                for building in self.buildings:
+                    if building_id == building["building_id"]:  # ["Museo:1", "Casa:2", "Scuola:3"]
+                        name = building["building_name"]
+                        observed_building_names.append(f"{name}:{building_id}")
+
+            all_buildings = {
+                "owned_buildings": owned_building_names,
+                "observed_buildings": observed_building_names
+            }
+
+
+            return json.dumps(all_buildings)
 
         else:
 
@@ -141,6 +155,21 @@ class CatalogBUILDING:  # mounted on '/building'
         new_building["building_id"] = building_id
 
         self.insertBuilding(new_building)
+
+        username = params["username"] # AGGIUNGERE USERNAME SULL'APPPPP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        type = params["type"]
+
+        with open('resource_catalog_info.json', 'r') as f:
+            r_config = json.load(f)
+            host = r_config["resource_host"]
+            port = int(r_config["resource_port"])
+
+        user_url = f"{host}:{port}/user/building?type={type}"
+        payload = {
+            "username": username,
+            "building_id": building_id,
+        }
+        requests.put(user_url, json.dumps(payload))
 
         return "Building addedd succesfully"
 
@@ -222,11 +251,18 @@ class CatalogUSER:  # mounted on '/user'
         with open(self.userdb_file, "w") as file:
             json.dump(self.users, file, indent=4)
 
-    def addBuildingToUser(self, username, building):
-        for user in self.users:
-            if username == user["username"]:
-                user["buildings"].append(building)
-                break
+    def addBuildingToUser(self, username, building, type):
+
+        if type == "owned":
+            for user in self.users:
+                if username == user["username"]:
+                    user["owned_buildings"].append(building)
+                    break
+        elif type == "observed":
+            for user in self.users:
+                if username == user["username"]:
+                    user["observed_buildings"].append(building)
+                    break
         with open(self.userdb_file, "w") as file:
             json.dump(self.users, file, indent=4)
 
@@ -284,8 +320,9 @@ class CatalogUSER:  # mounted on '/user'
 
             username = updating_values["username"]
             building = updating_values["building_id"]
+            type = params["type"]
 
-            self.addBuildingToUser(username, building)
+            self.addBuildingToUser(username, building, type)
 
         else:
             try:

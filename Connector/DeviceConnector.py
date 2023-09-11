@@ -37,10 +37,10 @@ import copy
 import cherrypy
 from typing import List
 
-from sensor_temperature import Sensor as SensorTemperature
-from sensor_humidity import Sensor as SensorHumidity
-from sensor_motion import Sensor as SensorMotion
-from sensor_particulate import Sensor as SensorParticulate
+from Sensors.sensor_temperature import Sensor as SensorTemperature
+from Sensors.sensor_humidity import Sensor as SensorHumidity
+from Sensors.sensor_motion import Sensor as SensorMotion
+from Sensors.sensor_particulate import Sensor as SensorParticulate
 
 class DeviceConnector: # mounted on /Data
 
@@ -133,6 +133,46 @@ class DeviceConnector: # mounted on /Data
         all_sensors = self.temp_sens + self.hum_sens + self.part_sens + self.motion_sens
         for s in all_sensors:
             s.stop()
+
+    def start(self, sensors_file):
+        sensors = json.load(open("sensors.json"))
+        # SIMULATION PART - SENSORS
+
+        for sensor in sensors['sensors']:
+            if sensor['measure'] == 'temperature':
+                # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+                sens = SensorTemperature(buildingID=sensor['building_id'], roomID=sensor['room_id'],
+                                         sensorID=sensor['sensor_id'],
+                                         measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+            elif sensor['measure'] == 'humidity':
+                # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+                sens = SensorHumidity(buildingID=sensor['building_id'], roomID=sensor['room_id'],
+                                      sensorID=sensor['sensor_id'],
+                                      measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+            elif sensor['measure'] == 'motion':
+                # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+                sens = SensorMotion(buildingID=sensor['building_id'], roomID=sensor['room_id'],
+                                    sensorID=sensor['sensor_id'],
+                                    measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+            else:
+                # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+                sens = SensorParticulate(buildingID=sensor['building_id'], roomID=sensor['room_id'],
+                                         sensorID=sensor['sensor_id'],
+                                         measure=sensor['measure'], measure_unit=sensor['measure_unit'])
+
+            raspberry.add_and_start_sensor(sens, sensor["measure"])
+
+    def restart(self, sensors_file):
+
+        # stop sensors
+        self.stopSensors()
+        # delete sensors
+        self.temp_sens.clear()
+        self.hum_sens.clear()
+        self.motion_sens.clear()
+        self.part_sens.clear()
+        # restart sensors
+        self.start(sensors_file)
 
     exposed = True
 
@@ -255,6 +295,8 @@ class DeviceConnector: # mounted on /Data
         with open(self.sensors_file, 'w') as f:
             json.dump(sensors_list, f)
 
+        self.restart("sensors.json")
+
         return
 
     def PUT(self, *uri, **params):  # per modificare un sensore già associato al dev connector?
@@ -277,30 +319,8 @@ if __name__ == '__main__':
     # sensor.json ma non in quello del database, Appena c'è un nuovo sensore li stoppo tutti e poi li faccio ripartire con quello nuovo,
     # ma fino alla registration il resource non sa che esiste e quindi nessuno potrà vedere i suoi dati
 
-    sensors = json.load(open("sensors.json"))
 
-
-    # SIMULATION PART - SENSORS
-
-    for sensor in sensors['sensors']:
-        if sensor['measure'] == 'temperature':
-            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-            sens = SensorTemperature(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
-                                       measure=sensor['measure'], measure_unit=sensor['measure_unit'])
-        elif sensor['measure'] == 'humidity':
-            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-            sens = SensorHumidity(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
-                                     measure=sensor['measure'], measure_unit=sensor['measure_unit'])
-        elif sensor['measure'] == 'motion':
-            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-            sens = SensorMotion(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
-                                     measure=sensor['measure'], measure_unit=sensor['measure_unit'])
-        else:
-            # class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-            sens = SensorParticulate(buildingID=sensor['building_id'], roomID=sensor['room_id'], sensorID=sensor['sensor_id'],
-                                     measure=sensor['measure'], measure_unit=sensor['measure_unit'])
-
-        raspberry.add_and_start_sensor(sens, sensor["measure"])
+    raspberry.start("sensors.json")
 
     # DEVICE CONNECTOR INFO
 
@@ -332,10 +352,6 @@ if __name__ == '__main__':
             #Prima della registration il file coi sensor del database va svuotato
             raspberry.registration()
             start_reg = time.time()
-
-
-    # quando faremo la comunicazione dall'app con Andre, spostare questa parte (in cui si monta il tree di cherrypy...)
-    # prima del while True sopra
 
 
     cherrypy.engine.block()

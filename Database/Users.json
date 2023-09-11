@@ -3,33 +3,40 @@
         "username": "mirko",
         "email": "andrea@corino.sium",
         "pw": "Corini",
-        "buildings": [
+        "owned_buildings": [
             "1",
             "3"
+        ],
+        "observed_buildings": [
+            "2"
         ]
     },
     {
         "username": "Ale",
-        "email" : "luca@dema.pempem",
+        "email": "luca@dema.pempem",
         "pw": "Clemens",
-        "buildings": []
+        "owned_buildings": [],
+        "observed_buildings": []
     },
     {
         "username": "Jack",
-        "email" : "luca@dema.pempem",
+        "email": "luca@dema.pempem",
         "pw": "Bonaventura",
-        "buildings": []
+        "owned_buildings": [],
+        "observed_buildings": []
     },
     {
         "username": "Matteo",
-        "email" : "luca@dema.pempem",
+        "email": "luca@dema.pempem",
         "pw": "Sassi",
-        "buildings": []
+        "owned_buildings": [],
+        "observed_buildings": []
     },
     {
         "username": "Giuseppe",
-        "email" : "luca@dema.pempem",
+        "email": "luca@dema.pempem",
         "pw": "Pinerolo",
-        "buildings": []
+        "owned_buildings": [],
+        "observed_buildings": []
     }
 ]

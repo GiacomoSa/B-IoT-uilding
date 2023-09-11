@@ -50,7 +50,8 @@
             "Bedroom3"
         ],
         "API_keys": "NONO"
-    },{
+    },
+    {
         "building_id": "5",
         "building_name": "School",
         "rooms": [
