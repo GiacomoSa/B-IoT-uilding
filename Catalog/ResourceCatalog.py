@@ -246,7 +246,10 @@ class CatalogUSER:  # mounted on '/user'
     def deleteBuildingFromUser(self, username, building):
         for user in self.users:
             if username == user["username"]:
-                user["buildings"].remove(building)
+                if building in user["owned_buildings"]:
+                    user["owned_buildings"].remove(building)
+                elif building in user["observed_buildings"]:
+                    user["observed_buildings"].remove(building)
                 break
         with open(self.userdb_file, "w") as file:
             json.dump(self.users, file, indent=4)

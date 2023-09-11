@@ -28,5 +28,11 @@
         "building_id": "1",
         "room_id": "Kitchen",
         "control_type": "ventilation"
+    },
+    {
+        "control_id": "6",
+        "building_id": "1",
+        "room_id": "Kitchen",
+        "control_type": "lighting"
     }
 ]
