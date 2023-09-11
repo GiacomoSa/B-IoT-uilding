@@ -82,25 +82,25 @@ if __name__ == '__main__':
     # https://9aca-87-4-225-230.ngrok.io/
 
 
-        #Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
-        sensors = json.load(open("sensors.json"))
-        temp_sens=[]
-        for sensor in sensors['sensors']:
-            if sensor['measure'] == 'temperature':
-                #class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
-                sensor=Sensor(buildingID=sensor['building_id'],
-                              roomID=sensor['room_id'],
-                              sensorID=sensor['sensor_id'],
-                              measure=sensor['measure'],
-                              measure_unit=sensor['measure_unit'])
-                temp_sens.append(sensor)
-        for sensor in temp_sens:
-            sensor.start()
+    #Io mi devo connettere al catalog e ricavare building e room, sensorID, topic, measure, broker, port
+    sensors = json.load(open("sensors.json"))
+    temp_sens=[]
+    for sensor in sensors['sensors']:
+        if sensor['measure'] == 'temperature':
+            #class sensor wants buildingID,roomID,sensorID,broker,port, measure, measure_unit
+            sensor=Sensor(buildingID=sensor['building_id'],
+                          roomID=sensor['room_id'],
+                          sensorID=sensor['sensor_id'],
+                          measure=sensor['measure'],
+                          measure_unit=sensor['measure_unit'])
+            temp_sens.append(sensor)
+    for sensor in temp_sens:
+        sensor.start()
 
-        start_send = time.time()
-        start_reg = time.time()
-        while True:
-            if time.time() - start_send > 1:
-                for sensor in temp_sens:
-                    sensor.sendData()
-                    start_send = time.time()
+    start_send = time.time()
+    start_reg = time.time()
+    while True:
+        if time.time() - start_send > 1:
+            for sensor in temp_sens:
+                sensor.sendData()
+                start_send = time.time()
