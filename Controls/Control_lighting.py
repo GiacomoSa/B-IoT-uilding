@@ -26,6 +26,7 @@ class lighting_control():
         self.buildingID = f"Building_{buildingID}"
         self.roomID = f"Room_{roomID}"
         self.baseTopic = baseTopic
+        self.TS_key = ""
 
         self.threshold = threshold
         self.status = 'on'
@@ -42,6 +43,19 @@ class lighting_control():
         # register the callback
         self._paho_mqtt.on_connect = self.myOnConnect
         self._paho_mqtt.on_message = self.myOnMessageReceived
+        self.getTS_key()
+
+    def getTS_key(self):
+        with open("../Database/Buildings.json", "r") as f:
+            all_buildings = json.load(f)
+        for building in all_buildings:
+            if building["building_id"] == self.buildingID.split('_')[1]:
+                try:
+                    keys_dict = building["API_keys"]
+                    room_id = self.roomID.split('_')[1]
+                    self.TS_key = keys_dict[room_id]
+                except:
+                    pass
 
     def get_measure(self):
         control_types = json.load(open("controls.json"))
@@ -70,6 +84,12 @@ class lighting_control():
                     self.status = 'off' #lo spengo
                     pub_msg = f"{self.measure} equal to zero, {self.control_type} turned {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
+
+                    # send heating ON to thingSpeak
+                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    field = "field5"
+                    url = f"{BASE_URL}&{field}={0}"
+                    response = requests.get(url)
                 else: #se già spento
                     pub_msg = f"{self.measure} equal to zero, {self.control_type} turned {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
@@ -78,6 +98,11 @@ class lighting_control():
                     self.status = 'on'
                     pub_msg = f"{self.measure} not zero, {self.control_type} turned {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
+                    # send heating ON to thingSpeak
+                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    field = "field5"
+                    url = f"{BASE_URL}&{field}={1}"
+                    response = requests.get(url)
                 else: # se acceso lo lascio acceso
                     pub_msg = f"{self.measure} not zero, {self.control_type} already {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)

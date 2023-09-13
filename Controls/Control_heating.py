@@ -13,10 +13,11 @@ import paho.mqtt.client as PahoMQTT
 import time
 import datetime as datetime
 
+
 class heating_control():
     exposed = True
 
-    def __init__(self, baseTopic, broker, port, controlID, buildingID, roomID, control_type, threshold): #notifier,
+    def __init__(self, baseTopic, broker, port, controlID, buildingID, roomID, control_type, threshold):  # notifier,
         self.broker = broker
         self.port = port
 
@@ -26,30 +27,45 @@ class heating_control():
         self.buildingID = f"Building_{buildingID}"
         self.roomID = f"Room_{roomID}"
         self.baseTopic = baseTopic
+        self.TS_key = ""
 
         self.threshold = threshold
         self.status = 'on'
-        self.time_schedule={}
+        self.time_schedule = {}
         self.time_schedule['on'] = "8"
         self.time_schedule['off'] = "17"
 
         self._isSubscriber = True
-        self.sub_topic='/'.join([self.baseTopic, self.buildingID,self.roomID, self.measure])
-        self.pub_topic = '/'.join([self.baseTopic, self.buildingID,self.roomID, self.control_type])
+        self.sub_topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.measure])
+        self.pub_topic = '/'.join([self.baseTopic, self.buildingID, self.roomID, self.control_type])
 
         # create an instance of paho.mqtt.client
         self._paho_mqtt = PahoMQTT.Client(controlID, False)
         # register the callback
         self._paho_mqtt.on_connect = self.myOnConnect
         self._paho_mqtt.on_message = self.myOnMessageReceived
+        self.getTS_key()
+
+    def getTS_key(self):
+        with open("../Database/Buildings.json", "r") as f:
+            all_buildings = json.load(f)
+        for building in all_buildings:
+            if building["building_id"] == self.buildingID.split('_')[1]:
+                try:
+                    keys_dict = building["API_keys"]
+                    room_id = self.roomID.split('_')[1]
+                    self.TS_key = keys_dict[room_id]
+                except:
+                    pass
 
     def get_measure(self):
         control_types = json.load(open("controls.json"))
         return control_types[f'{self.control_type}']
 
     def time_control(self):
-        actual_hour=int(datetime.datetime.now().strftime("%#H")) # '#' is used to remove the leading zero, it owrks only for windows, for unix use '-'
-        if actual_hour>int(self.time_schedule['on']) or actual_hour>int(self.time_schedule['off']):
+        actual_hour = int(datetime.datetime.now().strftime(
+            "%#H"))  # '#' is used to remove the leading zero, it owrks only for windows, for unix use '-'
+        if actual_hour > int(self.time_schedule['on']) or actual_hour > int(self.time_schedule['off']):
             return True
         else:
             return False
@@ -59,31 +75,42 @@ class heating_control():
 
     def myOnMessageReceived(self, paho_mqtt, userdata, rcv_msg):
         # A new message is received
-        #TODO, controllo la temperatura che ricevo se rispetta threshold accendo altrimenti spengo
-        #TODO, fare double check se è già acceso
+        # TODO, controllo la temperatura che ricevo se rispetta threshold accendo altrimenti spengo
+        # TODO, fare double check se è già acceso
         payload = json.loads(rcv_msg.payload)
         measure_to_check = float(payload['e'][0]['value'])
         if self.time_control():
             if measure_to_check <= self.threshold:
-                if self.status == 'off': #spento
-                    self.status = 'on' #acceso
+                if self.status == 'off':  # spento
+                    self.status = 'on'  # acceso
                     pub_msg = f"{self.measure} below threashold, {self.control_type} turned {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
+
+                    # send heating ON to thingSpeak
+                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    field = "field6"
+                    url = f"{BASE_URL}&{field}={1}"
+                    response = requests.get(url)
+
                 else:
                     pub_msg = f"{self.measure} below threashold, {self.control_type} already {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
             else:
-                if self.status == 'on': #acceso
-                    self.status = 'off' #spento
+                if self.status == 'on':  # acceso
+                    self.status = 'off'  # spento
                     pub_msg = f"{self.measure} above threashold, {self.control_type} turned {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
+                    # send heating OFF to thingSpeak
+                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    field = "field6"
+                    url = f"{BASE_URL}&{field}={0}"
+                    response = requests.get(url)
                 else:
                     pub_msg = f"{self.measure} above threashold, {self.control_type} already {self.status}"
                     self.myPublish(self.pub_topic, pub_msg)
         else:
             pub_msg = f"{self.control_type} control cannot be used during this time period"
             self.myPublish(self.pub_topic, pub_msg)
-
 
     def myPublish(self, topic, pub_msg):
 
@@ -115,6 +142,7 @@ class heating_control():
         self._paho_mqtt.loop_stop()
         self._paho_mqtt.disconnect()
 
+
 if __name__ == "__main__":
     conf = json.load(open("../Connector/settings.json"))  # File contenente broker, porta e basetopic
     baseTopic = conf["baseTopic"]
@@ -122,18 +150,18 @@ if __name__ == "__main__":
     port = conf["port"]
 
     controls = json.load(open("actuators.json"))
-    heat_controls=[]
+    heat_controls = []
     for control in controls:
         if control['control_type'] == "heating":
             heating_control = heating_control(
-                                              baseTopic=baseTopic,
-                                              broker=broker,
-                                              port=port,
-                                              controlID=control['control_id'],
-                                              buildingID=control['building_id'],
-                                              roomID=control['room_id'],
-                                              control_type=control['control_type'],
-                                              threshold=30.0)
+                baseTopic=baseTopic,
+                broker=broker,
+                port=port,
+                controlID=control['control_id'],
+                buildingID=control['building_id'],
+                roomID=control['room_id'],
+                control_type=control['control_type'],
+                threshold=30.0)
             heat_controls.append(heating_control)
     for control in heat_controls:
         control.stop()
@@ -144,4 +172,3 @@ if __name__ == "__main__":
         time.sleep(5)
     for control in heat_controls:
         control.stop()
-

@@ -26,9 +26,7 @@ class Control():
             "temperature": "field1",
             "humidity": "field2",
             "particulate": "field3",
-            "motion": "field4",
-            "light": "field5",  # on/off
-            "heating": "field6",  # on/off
+            "motion": "field4"
         }
 
 
