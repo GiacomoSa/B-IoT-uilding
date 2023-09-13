@@ -15,8 +15,13 @@
         "username": "Ale",
         "email": "luca@dema.pempem",
         "pw": "Clemens",
-        "owned_buildings": [],
-        "observed_buildings": []
+        "owned_buildings": [
+            "1",
+            "2"
+        ],
+        "observed_buildings": [
+            "5"
+        ]
     },
     {
         "username": "Jack",
