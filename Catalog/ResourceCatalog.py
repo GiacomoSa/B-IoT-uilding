@@ -125,7 +125,7 @@ class CatalogBUILDING:  # mounted on '/building'
 
         elif command == "getTSlink":
 
-            building_id = params["building"]
+            building_id = params["building_id"]
             room_id = params["room_id"]
 
             TS_link = ""
