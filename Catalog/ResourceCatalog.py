@@ -131,7 +131,7 @@ class CatalogBUILDING:  # mounted on '/building'
             TS_link = ""
             for building in self.buildings:
                 if building["building_id"] == building_id:
-                    TS_link_list = building["TS_link"]
+                    TS_link_list = building["TS_links"]
                     TS_link = TS_link_list[room_id]
 
             return TS_link
