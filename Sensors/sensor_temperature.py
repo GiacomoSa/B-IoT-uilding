@@ -66,8 +66,8 @@ class Sensor():
             message['e'][0]['value'] = self.getValue()
             message['e'][0]['timestamp']=str(time.time())
             self.client.myPublish(self.topic,json.dumps(message))
-            print("Published!\n" + json.dumps(message) + "\n")
-            print(f"Topic={self.topic}")
+            print("Published!\n")# + json.dumps(message) + "\n")
+            #print(f"Topic={self.topic}")
             print("--------------------------")
 
         def start (self):
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     start_send = time.time()
     start_reg = time.time()
     while True:
-        if time.time() - start_send > 1:
+        if time.time() - start_send > 5:
             for sensor in temp_sens:
                 sensor.sendData()
                 start_send = time.time()

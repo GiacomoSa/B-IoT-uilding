@@ -33,7 +33,7 @@ class MyMQTT:
 
 	def myPublish (self, topic, msg):
 		# if needed, you can do some computation or error-check before publishing
-		print ("publishing '%s' with topic '%s'" % (msg, topic))
+		print ("publishing '%s' \nwith topic '%s'" % (msg, topic))
 		# publish a message with a certain topic
 		self._paho_mqtt.publish(topic, msg, 2)
 
