@@ -7,7 +7,7 @@ if __name__=="__main__":
     buildings_id_list = [building['building_id'] for building in buildings]
     id = input(f"For which building do you wish to add a control? Choose among these: {buildings_id_list}\n>>")
     rooms = [building['rooms'] for building in buildings if building['building_id'] == id][0]
-    room = input(f"For which romm? Choose among these: {rooms}\n>>")
+    room = input(f"For which room? Choose among these: {rooms}\n>>")
     possible_controls = ['heating', 'ventilation', 'lighting', 'people_level']
     control_type = input(f"What kind of control? Choose among these: {possible_controls}\n>>")
 
