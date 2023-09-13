@@ -197,7 +197,7 @@ class StatisticAnalyzer:
 
 if __name__ == '__main__':
 
-    with open("settings.json", 'r') as f:
+    with open("../settings.json", 'r') as f:
         settings = json.load(f)
 
     # vedere se si prendono da CATALOG le info qua sotto
