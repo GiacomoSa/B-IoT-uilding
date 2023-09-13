@@ -345,7 +345,7 @@ if __name__ == '__main__':
     start_send = time.time()
     start_reg = time.time()
     while True:
-        if time.time() - start_send > 30:
+        if time.time() - start_send > 5:
             raspberry.sendData()
             start_send = time.time()
         if time.time() - start_reg > 300:

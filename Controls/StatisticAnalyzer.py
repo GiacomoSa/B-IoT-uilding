@@ -31,10 +31,10 @@ class StatisticAnalyzer:
 
         # last values
         self.timegap = 30
-        self.lastT = []
-        self.lastH = []
-        self.lastP = []
-        self.lastM = []
+        self.lastT = [0]
+        self.lastH = [0]
+        self.lastP = [0]
+        self.lastM = [0]
 
         self.hourly_average_T = 0.0
         self.hourly_average_H = 0.0
@@ -69,8 +69,11 @@ class StatisticAnalyzer:
         TS_key = ""
         for buil in building_list:
             if buil["building_id"] == building_id:
-                keys = buil["API_keys"]
-                TS_key = keys[room_id]
+                try:
+                    keys = buil["API_keys"]
+                    TS_key = keys[room_id]
+                except:
+                    pass
                 break
 
         payload = json.loads(payload)
@@ -197,7 +200,7 @@ class StatisticAnalyzer:
 
 if __name__ == '__main__':
 
-    with open("../settings.json", 'r') as f:
+    with open("../Sensors/settings.json", 'r') as f:
         settings = json.load(f)
 
     # vedere se si prendono da CATALOG le info qua sotto
@@ -209,7 +212,7 @@ if __name__ == '__main__':
 
     analyzer = StatisticAnalyzer(baseTopic, broker, port, clientID)
 
-    with open("./Database/Sensors.json", "r") as f:
+    with open("../Database/Sensors.json", "r") as f:
         all_sensors = json.load(f)
 
     topic = '/'.join([baseTopic, '#'])

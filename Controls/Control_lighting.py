@@ -165,7 +165,7 @@ if __name__ == "__main__":
         control.stop()
         control.start()
     a = 0
-    while (a < 30):
+    while True:
         a += 1
         time.sleep(5)
     for control in light_controls:

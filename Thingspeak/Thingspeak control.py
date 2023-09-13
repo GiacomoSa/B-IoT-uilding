@@ -34,42 +34,44 @@ class Control():
 
         # A new message is received
         topic = topic
-        payload = json.loads(payload)
+        try:
+            payload = json.loads(payload)
 
-        elements = topic.split('/')
-        measure = elements[-1]
-        room_id = elements[-2].split('_')[-1]
-        building_id = elements[-3].split('_')[-1]
+            elements = topic.split('/')
+            measure = elements[-1]
+            room_id = elements[-2].split('_')[-1]
+            building_id = elements[-3].split('_')[-1]
 
-        print("Message Received!")
-        print()
+            print("Message Received!")
+            print()
 
-        for building in self.buildings:
-            if building["building_id"] == building_id:
-                try:
-                    keys_dict = building["API_keys"]
-                    API_KEY = keys_dict[room_id]
-                    BASE_URL = f"https://api.thingspeak.com/update?api_key={API_KEY}"
-                    field = self.fields[measure]
-                    # get value
-                    value_to_send = float(payload['e'][0]['value'])
+            for building in self.buildings:
+                if building["building_id"] == building_id:
+                    try:
+                        keys_dict = building["API_keys"]
+                        API_KEY = keys_dict[room_id]
+                        BASE_URL = f"https://api.thingspeak.com/update?api_key={API_KEY}"
+                        field = self.fields[measure]
+                        # get value
+                        value_to_send = float(payload['e'][0]['value'])
 
-                    url = f"{BASE_URL}&{field}={value_to_send}"
-                    print(url)
+                        url = f"{BASE_URL}&{field}={value_to_send}"
+                        print(url)
 
-                    # Invia la richiesta HTTP per inviare i dati
-                    response = requests.get(url)
+                        # Invia la richiesta HTTP per inviare i dati
+                        response = requests.get(url)
 
-                    if response.status_code == 200:
-                        print("Dati inviati con successo a ThingSpeak")
-                    else:
-                        print("Errore nell'invio dei dati a ThingSpeak")
+                        if response.status_code == 200:
+                            print("Dati inviati con successo a ThingSpeak")
+                        else:
+                            print("Errore nell'invio dei dati a ThingSpeak")
 
-                except KeyError as e:
-                    print(f"Error {e}")
+                    except KeyError as e:
+                        print(f"Error {e}")
 
-                break
-
+                    break
+        except:
+            pass
 
     def start(self, topic):
         # manage connection to broker
@@ -84,7 +86,7 @@ class Control():
 
 if __name__ == '__main__':
 
-    with open("../settings.json", 'r') as f:
+    with open("../Sensors/settings.json", 'r') as f:
         settings = json.load(f)
 
     baseTopic = settings["baseTopic"]
