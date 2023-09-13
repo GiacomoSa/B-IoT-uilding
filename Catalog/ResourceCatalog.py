@@ -123,6 +123,19 @@ class CatalogBUILDING:  # mounted on '/building'
 
             return json.dumps(all_buildings)
 
+        elif command == "getTSlink":
+
+            building_id = params["building"]
+            room_id = params["room_id"]
+
+            TS_link = ""
+            for building in self.buildings:
+                if building["building_id"] == building_id:
+                    TS_link_list = building["TS_link"]
+                    TS_link = TS_link_list[room_id]
+
+            return TS_link
+
         else:
 
             try:

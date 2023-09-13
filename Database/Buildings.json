@@ -10,7 +10,13 @@
             "LivingRoom"
         ],
         "API_keys": {
-            "Bathroom1": "A4BQH3XTDD55SJZW"
+            "Bathroom1": "A4BQH3XTDD55SJZW",
+            "Kitchen": "MOZQUN0XD126LYVE"
+        },
+        "TS_links":
+        {
+            "Bathroom1": "https://thingspeak.com/channels/2269539/",
+            "Kitchen": "https://thingspeak.com/channels/2269534"
         }
     },
     {
