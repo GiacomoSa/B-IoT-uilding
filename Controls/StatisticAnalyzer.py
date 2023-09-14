@@ -75,43 +75,57 @@ class StatisticAnalyzer:
                 except:
                     pass
                 break
+        try:
+            payload = json.loads(payload)
+            measure_to_check = float(payload['e'][0]['value'])
 
-        payload = json.loads(payload)
-        measure_to_check = float(payload['e'][0]['value'])
+            pub_msg = {"value": -1}
 
-        if measure == 'temperature':
-            self.lastT.append(measure_to_check)
-            HUMIDEX = self.HUMIDEX()
-            self.hourly_average_T = self.average(self.lastT, self.hourly_average_T)
-            # send HUMIDEX to thingSpeak
-            BASE_URL = f"https://api.thingspeak.com/update?api_key={TS_key}"
-            field = "field7"
-            url = f"{BASE_URL}&{field}={HUMIDEX}"
-            response = requests.get(url)
+            if measure == 'temperature':
+                new_topic = '/'.join([self.baseTopic, building_id, room_id, "humidex"])
+                self.lastT.append(measure_to_check)
+                HUMIDEX = self.HUMIDEX()
+                self.hourly_average_T = self.average(self.lastT, self.hourly_average_T)
+                pub_msg["value"] = HUMIDEX
+                self.client.myPublish(new_topic, json.dumps(pub_msg))
+                # send HUMIDEX to thingSpeak
+                #BASE_URL = f"https://api.thingspeak.com/update?api_key={TS_key}"
+                #field = "field7"
+                #url = f"{BASE_URL}&{field}={HUMIDEX}"
+                #response = requests.get(url)
 
-        elif measure == 'humidity':
-            self.lastH.append(measure_to_check)
-            HUMIDEX = self.HUMIDEX()
-            self.hourly_average_H = self.average(self.lastH, self.hourly_average_H)
-            # send HUMIDEX to thingSpeak
-            BASE_URL = f"https://api.thingspeak.com/update?api_key={TS_key}"
-            field = "field7"
-            url = f"{BASE_URL}&{field}={HUMIDEX}"
-            response = requests.get(url)
+            elif measure == 'humidity':
+                new_topic = '/'.join([self.baseTopic, building_id, room_id, ])
+                self.lastH.append(measure_to_check)
+                HUMIDEX = self.HUMIDEX()
+                self.hourly_average_H = self.average(self.lastH, self.hourly_average_H)
+                pub_msg["value"] = HUMIDEX
+                self.client.myPublish(new_topic, json.dumps(pub_msg))
+                # send HUMIDEX to thingSpeak
+                #BASE_URL = f"https://api.thingspeak.com/update?api_key={TS_key}"
+                #field = "field7"
+                #url = f"{BASE_URL}&{field}={HUMIDEX}"
+                #response = requests.get(url)
 
-        elif measure == 'particulate':
-            self.lastP.append(measure_to_check)
-            AIQ = self.AIQ()
-            self.hourly_average_P = self.average(self.lastP, self.hourly_average_P)
-            # send AIQ to thingSpeak
-            BASE_URL = f"https://api.thingspeak.com/update?api_key={TS_key}"
-            field = "field8"
-            url = f"{BASE_URL}&{field}={AIQ}"
-            response = requests.get(url)
+            elif measure == 'particulate':
+                new_topic = '/'.join([self.baseTopic, building_id, room_id, "aiq"])
+                self.lastP.append(measure_to_check)
+                AIQ = self.AIQ()
+                self.hourly_average_P = self.average(self.lastP, self.hourly_average_P)
+                pub_msg["value"] = AIQ
+                self.client.myPublish(new_topic, json.dumps(pub_msg))
+                # send AIQ to thingSpeak
+                #BASE_URL = f"https://api.thingspeak.com/update?api_key={TS_key}"
+                #field = "field8"
+                #url = f"{BASE_URL}&{field}={AIQ}"
+                #response = requests.get(url)
 
-        elif measure == 'motion':
-            self.lastM.append(measure_to_check)
-            self.hourly_average_M = self.average(self.lastM, self.hourly_average_M)
+            elif measure == 'motion':
+                self.lastM.append(measure_to_check)
+                self.hourly_average_M = self.average(self.lastM, self.hourly_average_M)
+        except:
+            print("no measurements but control received")
+
 
     # to use
     def Breakpoints(self, C_P):

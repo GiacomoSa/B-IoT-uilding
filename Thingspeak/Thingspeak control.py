@@ -25,10 +25,13 @@ class Control():
         self.fields = {
             "temperature": "field1",
             "humidity": "field2",
-            "particulate": "field3",
-            "motion": "field4"
+            "particulate": "field4",
+            "motion": "field3",
+            "heating": "field6", # actuator
+            "lighting": "field5", # actuator
+            "humidex": "field7", # stat analyzer
+            "aiq": "field8" # stat analyzer
         }
-
 
     def notify(self, topic, payload):
 
@@ -53,7 +56,10 @@ class Control():
                         BASE_URL = f"https://api.thingspeak.com/update?api_key={API_KEY}"
                         field = self.fields[measure]
                         # get value
-                        value_to_send = float(payload['e'][0]['value'])
+                        if measure == "heating" or measure == "lighting" or measure == "humidex" or measure == "aiq":
+                            value_to_send = int(payload["value"])
+                        else:
+                            value_to_send = float(payload['e'][0]['value'])
 
                         url = f"{BASE_URL}&{field}={value_to_send}"
                         print(url)
