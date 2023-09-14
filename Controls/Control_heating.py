@@ -56,7 +56,7 @@ class heating_control():
                     room_id = self.roomID.split('_')[1]
                     self.TS_key = keys_dict[room_id]
                 except:
-                    pass
+                    print("Errore ottenere key")
 
     def get_measure(self):
         control_types = json.load(open("controls.json"))
@@ -79,37 +79,43 @@ class heating_control():
         # TODO, fare double check se è già acceso
         payload = json.loads(rcv_msg.payload)
         measure_to_check = float(payload['e'][0]['value'])
+        pub_msg = {"msg": "",
+                   "value": 0}
         if self.time_control():
             if measure_to_check <= self.threshold:
                 if self.status == 'off':  # spento
                     self.status = 'on'  # acceso
-                    pub_msg = f"{self.measure} below threashold, {self.control_type} turned {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} below threashold, {self.control_type} turned {self.status}"
+                    pub_msg["value"] = 1
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
 
                     # send heating ON to thingSpeak
-                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
-                    field = "field6"
-                    url = f"{BASE_URL}&{field}={1}"
-                    response = requests.get(url)
+                    #BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    #field = "field6"
+                    #url = f"{BASE_URL}&{field}={1}"
+                    #response = requests.get(url)
 
                 else:
-                    pub_msg = f"{self.measure} below threashold, {self.control_type} already {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} below threashold, {self.control_type} already {self.status}"
+                    pub_msg["value"] = 0
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
             else:
                 if self.status == 'on':  # acceso
                     self.status = 'off'  # spento
-                    pub_msg = f"{self.measure} above threashold, {self.control_type} turned {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} above threashold, {self.control_type} turned {self.status}"
+                    pub_msg["value"] = 0
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
                     # send heating OFF to thingSpeak
-                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
-                    field = "field6"
-                    url = f"{BASE_URL}&{field}={0}"
-                    response = requests.get(url)
+                    #BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    #field = "field6"
+                    #url = f"{BASE_URL}&{field}={0}"
+                    #response = requests.get(url)
                 else:
-                    pub_msg = f"{self.measure} above threashold, {self.control_type} already {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} above threashold, {self.control_type} already {self.status}"
+                    pub_msg["value"] = 1
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
         else:
-            pub_msg = f"{self.control_type} control cannot be used during this time period"
+            pub_msg["msg"] = f"{self.control_type} control cannot be used during this time period"
             self.myPublish(self.pub_topic, pub_msg)
 
     def myPublish(self, topic, pub_msg):
@@ -167,7 +173,7 @@ if __name__ == "__main__":
         control.stop()
         control.start()
     a = 0
-    while (a < 30):
+    while True:
         a += 1
         time.sleep(5)
     for control in heat_controls:

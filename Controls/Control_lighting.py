@@ -77,37 +77,43 @@ class lighting_control():
         #TODO, fare double check se è già acceso
         payload = json.loads(rcv_msg.payload)
         measure_to_check = float(payload['e'][0]['value'])
+        pub_msg = {"msg": "",
+                   "value": 0}
         if self.time_control():
             if measure_to_check == 0.0:
                 # status = 0 if on, status = 1 if off
                 if self.status == 'on': #se acceso
                     self.status = 'off' #lo spengo
-                    pub_msg = f"{self.measure} equal to zero, {self.control_type} turned {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} equal to zero, {self.control_type} turned {self.status}"
+                    pub_msg["value"] = 0
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
 
                     # send heating ON to thingSpeak
-                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
-                    field = "field5"
-                    url = f"{BASE_URL}&{field}={0}"
-                    response = requests.get(url)
+                    #BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    #field = "field5"
+                    #url = f"{BASE_URL}&{field}={0}"
+                    #response = requests.get(url)
                 else: #se già spento
-                    pub_msg = f"{self.measure} equal to zero, {self.control_type} turned {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} equal to zero, {self.control_type} turned {self.status}"
+                    pub_msg["value"] = 1
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
             else: #se ci sta gente
                 if self.status == 'off': #se spento, lo accendo
                     self.status = 'on'
-                    pub_msg = f"{self.measure} not zero, {self.control_type} turned {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} not zero, {self.control_type} turned {self.status}"
+                    pub_msg["value"] = 1
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
                     # send heating ON to thingSpeak
-                    BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
-                    field = "field5"
-                    url = f"{BASE_URL}&{field}={1}"
-                    response = requests.get(url)
+                    #BASE_URL = f"https://api.thingspeak.com/update?api_key={self.TS_key}"
+                    #field = "field5"
+                    #url = f"{BASE_URL}&{field}={1}"
+                    #response = requests.get(url)
                 else: # se acceso lo lascio acceso
-                    pub_msg = f"{self.measure} not zero, {self.control_type} already {self.status}"
-                    self.myPublish(self.pub_topic, pub_msg)
+                    pub_msg["msg"] = f"{self.measure} not zero, {self.control_type} already {self.status}"
+                    pub_msg["value"] = 0
+                    self.myPublish(self.pub_topic, json.dumps(pub_msg))
         else:
-            pub_msg = f"{self.control_type} control cannot be used during this time period"
+            pub_msg["msg"] = f"{self.control_type} control cannot be used during this time period"
             self.myPublish(self.pub_topic, pub_msg)
 
 
@@ -165,7 +171,7 @@ if __name__ == "__main__":
         control.stop()
         control.start()
     a = 0
-    while (a < 30):
+    while True:
         a += 1
         time.sleep(5)
     for control in light_controls:
