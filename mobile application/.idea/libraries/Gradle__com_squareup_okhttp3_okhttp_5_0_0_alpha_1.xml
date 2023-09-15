@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.squareup.okhttp3:okhttp:5.0.0-alpha.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/5.0.0-alpha.1/5ed901415ed3c3996efa36717a0eaa5f0ef6e657/okhttp-5.0.0-alpha.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/5.0.0-alpha.1/75a3f850af769e7c9979c50d10f72c43d013ffb5/okhttp-5.0.0-alpha.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/5.0.0-alpha.1/27a6b66a4644c190ea82cf443d572c25e6217912/okhttp-5.0.0-alpha.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
