@@ -1,0 +1,177 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.biotulding"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+11-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:4:5-81
+11-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:4:22-78
+12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+12-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:5:5-80
+12-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:5:22-77
+13    <uses-permission android:name="android.permission.WAKE_LOCK" />
+13-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:6:5-68
+13-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:6:22-65
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:7:5-67
+14-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:7:22-64
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:8:5-79
+15-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:8:22-76
+16    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+16-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:9:5-75
+16-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:9:22-72
+17
+18    <permission
+18-->[androidx.core:core:1.9.0] /Users/andreacorino/.gradle/caches/transforms-3/a443bacdd1ec174a8f8fa8b287c92fc4/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+19        android:name="com.example.biotulding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+19-->[androidx.core:core:1.9.0] /Users/andreacorino/.gradle/caches/transforms-3/a443bacdd1ec174a8f8fa8b287c92fc4/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+20        android:protectionLevel="signature" />
+20-->[androidx.core:core:1.9.0] /Users/andreacorino/.gradle/caches/transforms-3/a443bacdd1ec174a8f8fa8b287c92fc4/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+21
+22    <uses-permission android:name="com.example.biotulding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+22-->[androidx.core:core:1.9.0] /Users/andreacorino/.gradle/caches/transforms-3/a443bacdd1ec174a8f8fa8b287c92fc4/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+22-->[androidx.core:core:1.9.0] /Users/andreacorino/.gradle/caches/transforms-3/a443bacdd1ec174a8f8fa8b287c92fc4/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+23
+24    <application
+24-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:11:5-68:19
+25        android:allowBackup="true"
+25-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:12:9-35
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.9.0] /Users/andreacorino/.gradle/caches/transforms-3/a443bacdd1ec174a8f8fa8b287c92fc4/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+27        android:debuggable="true"
+28        android:extractNativeLibs="false"
+29        android:icon="@mipmap/ic_launcher"
+29-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:13:9-43
+30        android:label="@string/app_name"
+30-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:14:9-41
+31        android:networkSecurityConfig="@xml/network_security_config"
+31-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:17:9-69
+32        android:roundIcon="@mipmap/ic_launcher_round"
+32-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:15:9-54
+33        android:supportsRtl="true"
+33-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:16:9-35
+34        android:testOnly="true"
+35        android:theme="@style/Theme.BIoTulding"
+35-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:19:9-48
+36        android:usesCleartextTraffic="true" >
+36-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:18:9-44
+37        <activity
+37-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:20:9-23:20
+38            android:name="com.example.biotulding.MainActivity"
+38-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:21:13-41
+39            android:exported="true" >
+39-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:22:13-36
+40        </activity>
+41        <activity
+41-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:24:9-31:20
+42            android:name="com.example.biotulding.LoginActivity"
+42-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:25:13-42
+43            android:exported="true" >
+43-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:26:13-36
+44            <intent-filter>
+44-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:27:13-30:29
+45                <action android:name="android.intent.action.MAIN" />
+45-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:28:17-69
+45-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:28:25-66
+46
+47                <category android:name="android.intent.category.LAUNCHER" />
+47-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:29:17-77
+47-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:29:27-74
+48            </intent-filter>
+49        </activity>
+50        <activity
+50-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:32:9-35:20
+51            android:name="com.example.biotulding.SignUpActivity"
+51-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:33:13-43
+52            android:exported="true" >
+52-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:34:13-36
+53        </activity>
+54        <activity
+54-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:36:9-39:20
+55            android:name="com.example.biotulding.ShowRoomActivity"
+55-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:37:13-45
+56            android:exported="true" >
+56-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:38:13-36
+57        </activity>
+58        <activity
+58-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:40:9-43:20
+59            android:name="com.example.biotulding.NewBuildingActivity"
+59-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:41:13-48
+60            android:exported="true" >
+60-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:42:13-36
+61        </activity>
+62        <activity
+62-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:44:9-47:20
+63            android:name="com.example.biotulding.ShowSensorActivityOwned"
+63-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:45:13-52
+64            android:exported="true" >
+64-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:46:13-36
+65        </activity>
+66        <activity
+66-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:48:9-51:20
+67            android:name="com.example.biotulding.ShowSensorActivityObs"
+67-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:49:13-50
+68            android:exported="true" >
+68-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:50:13-36
+69        </activity>
+70        <activity
+70-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:52:9-55:20
+71            android:name="com.example.biotulding.ExistingBuildingActivity"
+71-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:53:13-53
+72            android:exported="true" >
+72-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:54:13-36
+73        </activity>
+74        <activity
+74-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:56:9-59:20
+75            android:name="com.example.biotulding.ThingSpeakActivity"
+75-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:57:13-47
+76            android:exported="true" >
+76-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:58:13-36
+77        </activity>
+78        <activity
+78-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:60:9-63:20
+79            android:name="com.example.biotulding.AddExistingActivity"
+79-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:61:13-48
+80            android:exported="true" >
+80-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:62:13-36
+81        </activity>
+82        <activity
+82-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:64:9-67:20
+83            android:name="com.example.biotulding.AddSensorActivity"
+83-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:65:13-46
+84            android:exported="true" >
+84-->/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/AndroidManifest.xml:66:13-36
+85        </activity>
+86
+87        <provider
+87-->[androidx.emoji2:emoji2:1.2.0] /Users/andreacorino/.gradle/caches/transforms-3/7694c501b0f19cc4fc1322cdba651a44/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+88            android:name="androidx.startup.InitializationProvider"
+88-->[androidx.emoji2:emoji2:1.2.0] /Users/andreacorino/.gradle/caches/transforms-3/7694c501b0f19cc4fc1322cdba651a44/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+89            android:authorities="com.example.biotulding.androidx-startup"
+89-->[androidx.emoji2:emoji2:1.2.0] /Users/andreacorino/.gradle/caches/transforms-3/7694c501b0f19cc4fc1322cdba651a44/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+90            android:exported="false" >
+90-->[androidx.emoji2:emoji2:1.2.0] /Users/andreacorino/.gradle/caches/transforms-3/7694c501b0f19cc4fc1322cdba651a44/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+91            <meta-data
+91-->[androidx.emoji2:emoji2:1.2.0] /Users/andreacorino/.gradle/caches/transforms-3/7694c501b0f19cc4fc1322cdba651a44/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+92                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+92-->[androidx.emoji2:emoji2:1.2.0] /Users/andreacorino/.gradle/caches/transforms-3/7694c501b0f19cc4fc1322cdba651a44/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+93                android:value="androidx.startup" />
+93-->[androidx.emoji2:emoji2:1.2.0] /Users/andreacorino/.gradle/caches/transforms-3/7694c501b0f19cc4fc1322cdba651a44/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+94            <meta-data
+94-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/andreacorino/.gradle/caches/transforms-3/4ddb24c4e296784fea9567e6347ef9b2/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+95                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+95-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/andreacorino/.gradle/caches/transforms-3/4ddb24c4e296784fea9567e6347ef9b2/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+96                android:value="androidx.startup" />
+96-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/andreacorino/.gradle/caches/transforms-3/4ddb24c4e296784fea9567e6347ef9b2/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+97        </provider>
+98    </application>
+99
+100</manifest>
