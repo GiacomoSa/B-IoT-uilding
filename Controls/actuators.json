@@ -34,5 +34,17 @@
         "building_id": "1",
         "room_id": "Kitchen",
         "control_type": "lighting"
+    },
+    {
+        "control_id": "7",
+        "building_id": "4",
+        "room_id": "Ski closet",
+        "control_type": "people level"
+    },
+    {
+        "control_id": "8",
+        "building_id": "5",
+        "room_id": "Emergency exit",
+        "control_type": "ventilation"
     }
 ]

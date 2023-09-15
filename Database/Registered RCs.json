@@ -1,1 +1,1 @@
-[{"host": "http://127.0.0.1", "port": "9095", "catalog_name": "B(IoT)uilding", "app_host": "http://10.0.2.2", "commands": {"DC_sensor_registration": "registration/sensor", "DC_device_registration": "registration/device", "delete_sensors": "registration/allsensors"}}, {"qua ci sara": "il secondo RC"}]
+[{"host": "http://127.0.0.1", "port": "9095", "catalog_name": "B(IoT)uilding"}]
