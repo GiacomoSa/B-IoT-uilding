@@ -1,0 +1,242 @@
+[
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_edittext_background_search.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/edittext_background_search.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_viewholder_mybuildings_home.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/viewholder_mybuildings_home.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_notification_bell.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/notification_bell.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_add_existing.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/add_existing.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_viewholder_existing.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/viewholder_existing.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_row_add_room.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/row_add_room.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_immagine_casa.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/immagine_casa.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_binoculars.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/binoculars.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_sensors_layout.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/sensors_layout.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_scheda_add_newbuilding.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/scheda_add_newbuilding.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_sfondo_dc_sensori.jpeg.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/sfondo_dc_sensori.jpeg"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_sensor_obs.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/sensor_obs.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_background.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/background.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_ic_lightbulb.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/ic_lightbulb.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_round_grey.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/round_grey.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_edittext_scheda_newbuilding.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/edittext_scheda_newbuilding.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/generated/res/pngs/debug/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_viewholder_sensors.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/viewholder_sensors.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_ic_add.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/ic_add.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_link_to_web.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/link_to_web.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_background_fondo_case.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/background_fondo_case.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_card_logo_background.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/card_logo_background.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_icon_temp.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/icon_temp.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_stanze_buildings.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/stanze_buildings.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_viewholder_stanze.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/viewholder_stanze.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_icon_motion.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/icon_motion.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_icon_humidity.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/icon_humidity.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_ic_close.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/ic_close.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_signup_activity.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/signup_activity.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_sensor_activity.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/sensor_activity.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/xml_network_security_config.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/xml/network_security_config.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_search.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/search.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_activity_main.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_viewholder_new.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/viewholder_new.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_singin_activity.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/singin_activity.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_ic_thingspeak.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/ic_thingspeak.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_foto_profilo.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/foto_profilo.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_building_recview.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/building_recview.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_icon_particulate.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/icon_particulate.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_room_logo.png.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/room_logo.png"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_ic_delete.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/ic_delete.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_background_new_sensor.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/background_new_sensor.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_top_background_curva.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/top_background_curva.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_followed_building.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/followed_building.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_main_mybuilding.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/main_mybuilding.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/drawable_icon_part.jpg.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/drawable/icon_part.jpg"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/layout_add_sensor_layout.xml.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/layout/add_sensor_layout.xml"
+    },
+    {
+        "merged": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/andreacorino/AndroidStudioProjects/BIoTulding/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp"
+    }
+]
