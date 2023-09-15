@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.109375" />
+        <entry key="../../Library/Android/sdk/platforms/android-33/data/res/layout/simple_spinner_dropdown_item.xml" value="0.24375" />
+        <entry key="../../Library/Android/sdk/platforms/android-33/data/res/layout/simple_spinner_item.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/background.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/background_new_sensor.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/card_logo_background.xml" value="0.122" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.122" />
+        <entry key="app/src/main/res/drawable/ic_lightbulb.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/immagine_casa.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/notification_bell.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/round_grey.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/search.xml" value="0.122" />
+        <entry key="app/src/main/res/drawable/top_background_curva.xml" value="0.171" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/add_existing.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/add_sensor_layout.xml" value="0.2543853759765625" />
+        <entry key="app/src/main/res/layout/followed_building.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/link_to_web.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/main_mybuilding.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/row_add_room.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/scheda_add_newbuilding.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/sensor_activity.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/sensor_obs.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/sensors_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/signup_activity.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/singin_activity.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/stanze_buildings.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/viewholder_existing.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/viewholder_mybuildings_home.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/viewholder_new.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/viewholder_sensors.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/viewholder_stanze.xml" value="0.24375" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

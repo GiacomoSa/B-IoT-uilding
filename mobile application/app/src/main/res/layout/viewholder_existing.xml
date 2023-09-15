@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginTop="20dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="10dp"
+    android:id="@+id/cardView_existing_recview">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/rossino">
+
+        <TextView
+            android:id="@+id/textView_buildingID_ex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginTop="8dp"
+            android:text="NOME BUILDING"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_building_address_ex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_buildingID_ex"
+            android:layout_marginLeft="16sp"
+            android:text="Via Piazza Corso Casa Bianca, W. DC"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:maxHeight="100dp"
+            android:src="@drawable/building_recview"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+

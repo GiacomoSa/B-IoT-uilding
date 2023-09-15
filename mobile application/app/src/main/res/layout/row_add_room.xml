@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:background="@drawable/round_grey"
+        android:id="@+id/newroomtoadd"
+        android:layout_weight="1"
+        android:layout_marginRight = "5dp"
+        android:layout_marginLeft="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/round_grey">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:layout_width="100dp"
+            android:layout_height="40dp"/>
+
+    </FrameLayout>
+
+
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/ic_close"/>
+
+
+</LinearLayout>
