@@ -67,6 +67,14 @@ class DeviceConnector: # mounted on /Data
         self.part_sens = []
         self.motion_sens = []
 
+        with open("device_connector_info.json", "r") as f:
+            file = json.load(f)
+
+        commands = file["commands"]
+        self.sensor_registration_command = commands["DC_sensor_registration"]
+        self.device_registration_command = commands["DC_device_registration"]
+        self.sensors_delete_command = commands["delete_sensors"]
+
     def add_and_start_sensor(self, sensor, meas):
         sensor.start()
         if meas == "temperature":
@@ -84,13 +92,13 @@ class DeviceConnector: # mounted on /Data
         payload = {"RC_name": RC_name}
         r = requests.get(url=url, data=payload)
         RC_info = r.json()
-        commands = RC_info["commands"]
+        #commands = RC_info["commands"]
         self.RC_host = RC_info["host"]
         self.RC_port = RC_info["port"]
         self.RC_name = RC_info["catalog_name"]
-        self.sensor_registration_command = commands["DC_sensor_registration"]
-        self.device_registration_command = commands["DC_device_registration"]
-        self.sensors_delete_command = commands["delete_sensors"]
+        #self.sensor_registration_command = commands["DC_sensor_registration"]
+        #self.device_registration_command = commands["DC_device_registration"]
+        #self.sensors_delete_command = commands["delete_sensors"]
 
     def registration(self):  # devices and resources registration inside the RESOURCE CATALOG -> called in a loop
         # per ora mi vengono solo in mente sensori/attuatori che sono gestiti da un Device Connector
