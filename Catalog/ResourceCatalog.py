@@ -669,9 +669,15 @@ class CatalogRESOURCES:  # mounted on /resource
 
     # ----- DEVICE -----
     def insertResource(self, device_json):
-        self.resources.append(device_json)
-        with open(self.resourcedb_file, "w") as file:
-            json.dump(self.resources, file, indent=4)
+        found = False
+        for res in self.resources:
+            if res["catalog_id"] == device_json["catalog_id"]:
+                found = True
+                break
+        if not found:
+            self.resources.append(device_json)
+            with open(self.resourcedb_file, "w") as file:
+                json.dump(self.resources, file, indent=4)
 
     def updateResource(self, updated_device, idx):
         self.resources[idx] = copy.deepcopy(updated_device)
@@ -712,8 +718,8 @@ class CatalogRESOURCES:  # mounted on /resource
         """
         add a new resource
         """
-
-        new_resource = json.loads(cherrypy.request.body.read())
+        new_resource = params
+        #new_resource = json.loads(cherrypy.request.body.read())
         self.insertResource(new_resource)
 
         return  # ???
@@ -823,6 +829,7 @@ if __name__ == '__main__':
     host = r_config["resource_host"]
     port = int(r_config["resource_port"])
     catalog_name = r_config["catalog_name"]
+    app_host = r_config["app_host"]
 
     buildings_db = "../Database/Buildings.json"
     users_db = "../Database/Users.json"
@@ -861,7 +868,8 @@ if __name__ == '__main__':
     registration_info = {
         "host": host,
         "port": port,
-        "catalog_name": catalog_name
+        "catalog_name": catalog_name,
+        "app_host": app_host
     }
 
     while True:

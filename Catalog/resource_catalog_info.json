@@ -1,5 +1,6 @@
 {
   "resource_host": "http://127.0.0.1",
   "resource_port": "9095",
-  "catalog_name": "B(IoT)uilding"
+  "catalog_name": "B(IoT)uilding",
+  "app_host": "http://10.0.2.2"
 }

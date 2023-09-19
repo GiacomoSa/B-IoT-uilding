@@ -100,6 +100,13 @@ class DeviceConnector: # mounted on /Data
         #self.device_registration_command = commands["DC_device_registration"]
         #self.sensors_delete_command = commands["delete_sensors"]
 
+    def post_info(self):
+        url = self.RC_host + ':' + self.RC_port + '/' + "resource"
+        with open("device_connector_info.json", "r") as f:
+            json_obj = json.load(f)
+        r = requests.post(url=url, data=json_obj)
+
+
     def registration(self):  # devices and resources registration inside the RESOURCE CATALOG -> called in a loop
         # per ora mi vengono solo in mente sensori/attuatori che sono gestiti da un Device Connector
         # SENSORS REGISTRATION
@@ -319,6 +326,7 @@ if __name__ == '__main__':
     raspberry = DeviceConnector()
     RC_name = "B(IoT)uilding"
     raspberry.request_RC(RC_name=RC_name)
+    raspberry.post_info()
     raspberry.registration()
     #Fa partire lo start di tutti i sensori
     #Il device connector deve far fare il .publish
